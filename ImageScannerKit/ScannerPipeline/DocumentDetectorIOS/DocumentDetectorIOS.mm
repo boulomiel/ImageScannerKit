@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DocumentDetector.h"
+#import "DocumentDetectorIOS.h"
 #import "CameraHandler.hpp"
 #import "Erosion.hpp"
 #import "Thresholded.hpp"
@@ -24,7 +24,7 @@
 
 using namespace cv;
 
-@implementation DocumentDetector
+@implementation DocumentDetectorIOS
 
 - (void)detectDocumentIn:(UIImage *)image completion:(void (^)(UIImage *, NSArray<NSValue *> *))completion {
     Mat mat, baseImage, image_copy;

@@ -18,6 +18,7 @@
 #import "AutoSnapHandler.hpp"
 #import "PointToCGConverter.hpp"
 #import "Clahe.hpp"
+#import "DocumentDetector.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import <opencv2/videoio/cap_ios.h>
@@ -39,12 +40,14 @@ BOOL isUIDetectionActivated;
 PointToCGConverter* pointConverter;
 AutoSnapHandlerProtocol* snapHandler;
 CvVideoCamera* videoCamera;
+DocumentDetector *detector;
 NSOperationQueue *cameraOperationQueue;
 
 /// Initialized the Camera Handler  with CameraHandlerFrameHolder
 /// - Parameter frameHolder: CameraHandlerFrameHolder protocol, wrapping an image view to be the frame of the camera
 - (nonnull id)initWithFrameHolder:(nonnull id<CameraHandlerFrameHolder>)frameHolder andDelegate:(nonnull id<CameraHandlerDelegate>)delegate {
     videoCamera = [[CvVideoCamera alloc] initWithParentView:frameHolder.frameView];
+    detector = [[DocumentDetector alloc] init];
     _delegate = delegate;
     isAutoDetectionActivated = true;
     isUIDetectionActivated = true;
@@ -117,52 +120,29 @@ NSOperationQueue *cameraOperationQueue;
 
 - (void)processImage:(Mat&) image;
 {
-    cvtColor(image, image, COLOR_BGR2BGRA);
-    Mat baseImage;
-    Mat image_copy;
-    cvtColor(image, baseImage, COLOR_BGR2RGB);
-    image.copyTo(image_copy);
-
-    GrayScale *grayScale = new GrayScale;
-    Blurry *blurry = new Blurry;
-    Clahe *clahe = new Clahe;
-
-    Thresholded *thresHolded = new Thresholded;
-    Erosion *openErosion = new Erosion(MORPH_OPEN);
-    Erosion *closeErosion = new Erosion(MORPH_CLOSE);
-    Cannyied *canny = new Cannyied;
+    Mat copy;
+    image.copyTo(copy);
     __weak typeof(self) weakSelf = self;
-    DetectPolygon *detectPolygon = new DetectPolygon([&, weakSelf](const std::vector<cv::Point> points){
+    
+    [detector detectDocumentIn:copy completion:^(Mat processedImage, std::vector<cv::Point> cornerPoints) {
         dispatch_async(dispatch_get_main_queue(), ^{
             PointToCGConverter *converter = [[PointToCGConverter alloc] init];
-            if(weakSelf) {
-                [weakSelf.delegate onDocumentDetected: [converter convertPoint: points] andImage: MatToUIImage(image)];
-            }
+            NSArray<NSValue*> *convertedPoints = [converter convertPoint:cornerPoints];
+            [weakSelf.delegate onDocumentDetected:convertedPoints andImage:MatToUIImage(processedImage)];
         });
-        if (points.empty()){
+        if (cornerPoints.empty()){
             return;
         }
         if (isUIDetectionActivated) {
             Mat mask = Mat::zeros(image.size(), CV_8UC4);
-            fillPoly(mask, points, cv::Scalar(165, 255, 128, 255));
+            fillPoly(mask, cornerPoints, cv::Scalar(165, 255, 128, 255));
             addWeighted(image, 1.0, mask, 0.8, 0.0, image);
         }
         if (!isAutoDetectionActivated) {
             return;
         }
-        snapHandler->addPoints(points, baseImage);
-    });
-   
-    grayScale->setNext(blurry);
-    blurry->setNext(closeErosion);
-    closeErosion->setNext(thresHolded);
-    thresHolded->setNext(openErosion);
-    openErosion->setNext(canny);
-    canny->setNext(detectPolygon);
-    
-   // grayScale->handle(image);
-
-    grayScale->handle(image_copy);
+        snapHandler->addPoints(cornerPoints, processedImage);
+    }];
 }
 
 @end
