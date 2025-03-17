@@ -1,0 +1,755 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		878D3BBA2D703F0E007324B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BB92D703F0E007324B4 /* AVFoundation.framework */; };
+		878D3BBB2D703F18007324B4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E85CD2D6EE55F00DF6AE8 /* CoreGraphics.framework */; };
+		878D3BBD2D703F29007324B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BBC2D703F29007324B4 /* CoreMedia.framework */; };
+		878D3BBF2D703F5C007324B4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BBE2D703F5C007324B4 /* CoreVideo.framework */; };
+		878D3BC02D703F82007324B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E85CF2D6EE58900DF6AE8 /* UIKit.framework */; platformFilter = ios; };
+		878D3BC42D703FED007324B4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BC32D703FED007324B4 /* QuartzCore.framework */; };
+		878D3BC72D74152A007324B4 /* ImageScannerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */; };
+		878D3BC82D74152A007324B4 /* ImageScannerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		878D3BCE2D741F00007324B4 /* opencv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E86082D703BD600DF6AE8 /* opencv2.xcframework */; };
+		878E860A2D703C0F00DF6AE8 /* opencv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E86082D703BD600DF6AE8 /* opencv2.xcframework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		878D3BC92D74152A007324B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 878E85A42D6EE04400DF6AE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 878E85AC2D6EE04400DF6AE8;
+			remoteInfo = ImageScannerKit;
+		};
+		878E85EE2D7027C300DF6AE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 878E85A42D6EE04400DF6AE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 878E85DB2D7027C100DF6AE8;
+			remoteInfo = ImageScannerKitTemplate;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		878D3BCB2D74152A007324B4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				878D3BC82D74152A007324B4 /* ImageScannerKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		878D3BB92D703F0E007324B4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		878D3BBC2D703F29007324B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		878D3BBE2D703F5C007324B4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		878D3BC12D703F95007324B4 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
+		878D3BC32D703FED007324B4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageScannerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		878E85CD2D6EE55F00DF6AE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		878E85CF2D6EE58900DF6AE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		878E85DC2D7027C100DF6AE8 /* ImageScannerKitTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageScannerKitTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		878E85ED2D7027C300DF6AE8 /* ImageScannerKitTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageScannerKitTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		878E86082D703BD600DF6AE8 /* opencv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = opencv2.xcframework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		878F4C252D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "ImageScannerKit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ScannerPipeline/Clahe.hpp,
+			);
+			publicHeaders = (
+				CameraHandler/CameraHandler.hpp,
+				CameraHandler/CameraHandlerFrameHolder.h,
+				ImageScannerKit.h,
+				OCVWrapper/OCVWrapper.hpp,
+			);
+			target = 878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		878F4C262D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "Compile Sources" phase from "ImageScannerKit" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 878E85A92D6EE04400DF6AE8 /* Sources */;
+			membershipExceptions = (
+				CameraHandler/CameraHandlerDelegate.h,
+				ScannerPipeline/Clahe.hpp,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ImageScannerKitTemplate;
+			sourceTree = "<group>";
+		};
+		878E85F02D7027C300DF6AE8 /* ImageScannerKitTemplateTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ImageScannerKitTemplateTests;
+			sourceTree = "<group>";
+		};
+		878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				878F4C252D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "ImageScannerKit" target */,
+				878F4C262D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "Compile Sources" phase from "ImageScannerKit" target */,
+			);
+			explicitFileTypes = {
+				CameraHandler/CameraHandler.hpp = sourcecode.cpp.h;
+			};
+			path = ImageScannerKit;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		878E85AA2D6EE04400DF6AE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				878D3BBD2D703F29007324B4 /* CoreMedia.framework in Frameworks */,
+				878D3BC02D703F82007324B4 /* UIKit.framework in Frameworks */,
+				878D3BC42D703FED007324B4 /* QuartzCore.framework in Frameworks */,
+				878D3BBB2D703F18007324B4 /* CoreGraphics.framework in Frameworks */,
+				878D3BBA2D703F0E007324B4 /* AVFoundation.framework in Frameworks */,
+				878E860A2D703C0F00DF6AE8 /* opencv2.xcframework in Frameworks */,
+				878D3BBF2D703F5C007324B4 /* CoreVideo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85D92D7027C100DF6AE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				878D3BC72D74152A007324B4 /* ImageScannerKit.framework in Frameworks */,
+				878D3BCE2D741F00007324B4 /* opencv2.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85EA2D7027C300DF6AE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		878E85A32D6EE04400DF6AE8 = {
+			isa = PBXGroup;
+			children = (
+				878E86082D703BD600DF6AE8 /* opencv2.xcframework */,
+				878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */,
+				878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
+				878E85F02D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
+				878E85AE2D6EE04400DF6AE8 /* Products */,
+				878E85C02D6EE08500DF6AE8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		878E85AE2D6EE04400DF6AE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */,
+				878E85DC2D7027C100DF6AE8 /* ImageScannerKitTemplate.app */,
+				878E85ED2D7027C300DF6AE8 /* ImageScannerKitTemplateTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		878E85C02D6EE08500DF6AE8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				878D3BC32D703FED007324B4 /* QuartzCore.framework */,
+				878D3BC12D703F95007324B4 /* CoreImage.framework */,
+				878D3BBE2D703F5C007324B4 /* CoreVideo.framework */,
+				878D3BBC2D703F29007324B4 /* CoreMedia.framework */,
+				878D3BB92D703F0E007324B4 /* AVFoundation.framework */,
+				878E85CF2D6EE58900DF6AE8 /* UIKit.framework */,
+				878E85CD2D6EE55F00DF6AE8 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		878E85A82D6EE04400DF6AE8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878E85B52D6EE04400DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKit" */;
+			buildPhases = (
+				878E85A82D6EE04400DF6AE8 /* Headers */,
+				878E85A92D6EE04400DF6AE8 /* Sources */,
+				878E85AA2D6EE04400DF6AE8 /* Frameworks */,
+				878E85AB2D6EE04400DF6AE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */,
+			);
+			name = ImageScannerKit;
+			packageProductDependencies = (
+			);
+			productName = ImageScannerKit;
+			productReference = 878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		878E85DB2D7027C100DF6AE8 /* ImageScannerKitTemplate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878E85FF2D7027C300DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKitTemplate" */;
+			buildPhases = (
+				878E85D82D7027C100DF6AE8 /* Sources */,
+				878E85D92D7027C100DF6AE8 /* Frameworks */,
+				878E85DA2D7027C100DF6AE8 /* Resources */,
+				878D3BCB2D74152A007324B4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				878D3BCA2D74152A007324B4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
+			);
+			name = ImageScannerKitTemplate;
+			packageProductDependencies = (
+			);
+			productName = ImageScannerKitTemplate;
+			productReference = 878E85DC2D7027C100DF6AE8 /* ImageScannerKitTemplate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		878E85EC2D7027C300DF6AE8 /* ImageScannerKitTemplateTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878E86022D7027C300DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKitTemplateTests" */;
+			buildPhases = (
+				878E85E92D7027C300DF6AE8 /* Sources */,
+				878E85EA2D7027C300DF6AE8 /* Frameworks */,
+				878E85EB2D7027C300DF6AE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				878E85EF2D7027C300DF6AE8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				878E85F02D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
+			);
+			name = ImageScannerKitTemplateTests;
+			packageProductDependencies = (
+			);
+			productName = ImageScannerKitTemplateTests;
+			productReference = 878E85ED2D7027C300DF6AE8 /* ImageScannerKitTemplateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		878E85A42D6EE04400DF6AE8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					878E85AC2D6EE04400DF6AE8 = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
+					};
+					878E85DB2D7027C100DF6AE8 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					878E85EC2D7027C300DF6AE8 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 878E85DB2D7027C100DF6AE8;
+					};
+				};
+			};
+			buildConfigurationList = 878E85A72D6EE04400DF6AE8 /* Build configuration list for PBXProject "ImageScannerKit" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 878E85A32D6EE04400DF6AE8;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 878E85AE2D6EE04400DF6AE8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */,
+				878E85DB2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
+				878E85EC2D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		878E85AB2D6EE04400DF6AE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85DA2D7027C100DF6AE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85EB2D7027C300DF6AE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		878E85A92D6EE04400DF6AE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85D82D7027C100DF6AE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878E85E92D7027C300DF6AE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		878D3BCA2D74152A007324B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */;
+			targetProxy = 878D3BC92D74152A007324B4 /* PBXContainerItemProxy */;
+		};
+		878E85EF2D7027C300DF6AE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 878E85DB2D7027C100DF6AE8 /* ImageScannerKitTemplate */;
+			targetProxy = 878E85EE2D7027C300DF6AE8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		878E85B62D6EE04400DF6AE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		878E85B72D6EE04400DF6AE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		878E85B82D6EE04400DF6AE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		878E85B92D6EE04400DF6AE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		878E86002D7027C300DF6AE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ADDRESS_SANITIZER_CONTAINER_OVERFLOW = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_STANDARD_LIBRARY_HARDENING = "$(__LIBRARY_HARDENING_DEFAULT_VALUE)";
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ImageScannerKitTemplate/Preview Content\"";
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires the camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKitTemplate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKitTemplate/ImageScannerKitTemplate-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		878E86012D7027C300DF6AE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ADDRESS_SANITIZER_CONTAINER_OVERFLOW = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ImageScannerKitTemplate/Preview Content\"";
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires the camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKitTemplate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rubenmimoun/Documents/GitHub/ImageScanner/ImageScannerKit/ImageScannerKitTemplate/ImageScannerKitTemplate-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		878E86032D7027C300DF6AE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKitTemplateTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageScannerKitTemplate.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImageScannerKitTemplate";
+			};
+			name = Debug;
+		};
+		878E86042D7027C300DF6AE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ImageScannerKitTemplateTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageScannerKitTemplate.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImageScannerKitTemplate";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		878E85A72D6EE04400DF6AE8 /* Build configuration list for PBXProject "ImageScannerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878E85B82D6EE04400DF6AE8 /* Debug */,
+				878E85B92D6EE04400DF6AE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		878E85B52D6EE04400DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878E85B62D6EE04400DF6AE8 /* Debug */,
+				878E85B72D6EE04400DF6AE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		878E85FF2D7027C300DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKitTemplate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878E86002D7027C300DF6AE8 /* Debug */,
+				878E86012D7027C300DF6AE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		878E86022D7027C300DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKitTemplateTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878E86032D7027C300DF6AE8 /* Debug */,
+				878E86042D7027C300DF6AE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 878E85A42D6EE04400DF6AE8 /* Project object */;
+}
