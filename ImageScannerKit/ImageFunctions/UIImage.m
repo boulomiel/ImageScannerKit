@@ -8,6 +8,10 @@
 #import "Crop/Crop.h"
 #import "Rotate/Rotate.h"
 #import "Binary/Binary.h"
+#import "Contrast/Contrast.h"
+#import "Brightness/Brightness.h"
+#import "Sharpness/Sharpness.h"
+
 #import "PerspectiveTransform/PerspectiveTransform.h"
 
 @implementation UIImage(Crop)
@@ -40,6 +44,21 @@
 -(UIImage*) toBinary: (float) threshold {
     Binary* binary = [[Binary alloc] init];
     return [binary toBinary:self withThreshold:threshold];
+}
+
+-(UIImage*) contrast: (float) alpha andBeta:(float) beta {
+    Contrast* contrast = [[Contrast alloc] init];
+    return [contrast contrast:self withAlpha:alpha andBeta:beta];
+}
+
+-(UIImage*) brightness:(float) value {
+    Brightness* brightness = [[Brightness alloc] init];
+    return [brightness brightness:self andValue:value];
+}
+
+- (UIImage *)sharpness:(float) strength {
+    Sharpness* sharpness = [[Sharpness alloc] init];
+    return [sharpness sharpness:self withStrength:strength];
 }
 
 @end

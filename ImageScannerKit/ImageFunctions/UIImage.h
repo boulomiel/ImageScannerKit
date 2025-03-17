@@ -44,7 +44,22 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - threshold: float value up to 255 - Whatever channel (B,G,R,A) value below this threshold will be set to 0.
 -(UIImage*) toBinary:(float) threshold;
 
+/// Adjusts the contrast and brightness of the given UIImage.
+/// - Parameter alpha: The contrast factor ( >1 increases contrast, 0-1 decreases contrast).
+/// - Parameter beta: The brightness adjustment (positive values increase brightness, negative values decrease it).
+/// - Returns: A new UIImage with the applied contrast and brightness adjustments.
+-(UIImage*) contrast: (float) alpha andBeta:(float) beta;
 
+
+/// Adjusts the brightness of the given UIImage.
+/// - Parameter value: The brightness adjustment (positive values increase brightness, negative values decrease it).
+/// - Returns: A new UIImage with the applied brightness adjustment.
+-(UIImage*) brightness:(float) value;
+
+/// Adjusts the sharpness of the given UIImage.
+/// - Parameter strength: The sharpness intensity (higher values increase sharpness, lower values decrease it).
+/// - Returns: A new UIImage with the applied sharpness enhancement.
+- (UIImage *)sharpness:(float)strength;
 
 @end
 
