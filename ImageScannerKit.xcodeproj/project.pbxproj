@@ -65,31 +65,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		878F4C252D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "ImageScannerKit" target */ = {
+		87B980372D89420500A5636C /* Exceptions for "Sources" folder in "ImageScannerKit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ScannerPipeline/Clahe.hpp,
-			);
 			publicHeaders = (
-				Camera/CameraHandler.hpp,
-				Camera/CameraHandlerFrameHolder.h,
-				ImageScannerKit.h,
-				OCVWrapper/OCVWrapper.hpp,
+				ImageScannerKit/Camera/CameraHandler.hpp,
+				ImageScannerKit/Image/UIImage.h,
+				ImageScannerKit/ImageScannerKit.h,
+				ImageScannerKit/ScannerPipeline/DocumentDetectorIOS/DocumentDetectorIOS.h,
 			);
 			target = 878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		878F4C262D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "Compile Sources" phase from "ImageScannerKit" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 878E85A92D6EE04400DF6AE8 /* Sources */;
-			membershipExceptions = (
-				Camera/CameraHandlerDelegate.h,
-				ScannerPipeline/Clahe.hpp,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */ = {
@@ -102,16 +88,12 @@
 			path = ImageScannerKitTemplateTests;
 			sourceTree = "<group>";
 		};
-		878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */ = {
+		87B980022D8941E500A5636C /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				878F4C252D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "ImageScannerKit" target */,
-				878F4C262D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "Compile Sources" phase from "ImageScannerKit" target */,
+				87B980372D89420500A5636C /* Exceptions for "Sources" folder in "ImageScannerKit" target */,
 			);
-			explicitFileTypes = {
-				Camera/CameraHandler.hpp = sourcecode.cpp.h;
-			};
-			path = ImageScannerKit;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -154,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				878E86082D703BD600DF6AE8 /* opencv2.xcframework */,
-				878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */,
+				87B980022D8941E500A5636C /* Sources */,
 				878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
 				878E85F02D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
 				878E85AE2D6EE04400DF6AE8 /* Products */,
@@ -213,7 +195,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				878F4C0D2D8004E800ACBEE9 /* ImageScannerKit */,
+				87B980022D8941E500A5636C /* Sources */,
 			);
 			name = ImageScannerKit;
 			packageProductDependencies = (
@@ -388,7 +370,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
-				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScannerKit/Sources/ImageScannerKit/PrefixHeader.pch;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -428,7 +410,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
-				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScannerKit/ImageScannerKit/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/rubenmimoun/Documents/GitHub/ImageScannerKit/Sources/ImageScannerKit/PrefixHeader.pch;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

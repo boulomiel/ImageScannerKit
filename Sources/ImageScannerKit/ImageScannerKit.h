@@ -14,6 +14,7 @@ FOUNDATION_EXPORT double ImageScannerKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char ImageScannerKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ImageScannerKit/PublicHeader.h>
-#import <ImageScannerKit/OCVWrapper.hpp>
-#import <ImageScannerKit/CameraHandler.hpp>
 #import "UIImage.h"
+#import "OCVWrapper.hpp"
+#import "CameraHandler.hpp"
+#import "DocumentDetectorIOS.h"
