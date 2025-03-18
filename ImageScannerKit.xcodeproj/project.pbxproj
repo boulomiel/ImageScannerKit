@@ -71,8 +71,8 @@
 				ScannerPipeline/Clahe.hpp,
 			);
 			publicHeaders = (
-				CameraHandler/CameraHandler.hpp,
-				CameraHandler/CameraHandlerFrameHolder.h,
+				Camera/CameraHandler.hpp,
+				Camera/CameraHandlerFrameHolder.h,
 				ImageScannerKit.h,
 				OCVWrapper/OCVWrapper.hpp,
 			);
@@ -85,7 +85,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 878E85A92D6EE04400DF6AE8 /* Sources */;
 			membershipExceptions = (
-				CameraHandler/CameraHandlerDelegate.h,
+				Camera/CameraHandlerDelegate.h,
 				ScannerPipeline/Clahe.hpp,
 			);
 		};
@@ -109,7 +109,7 @@
 				878F4C262D8004E800ACBEE9 /* Exceptions for "ImageScannerKit" folder in "Compile Sources" phase from "ImageScannerKit" target */,
 			);
 			explicitFileTypes = {
-				CameraHandler/CameraHandler.hpp = sourcecode.cpp.h;
+				Camera/CameraHandler.hpp = sourcecode.cpp.h;
 			};
 			path = ImageScannerKit;
 			sourceTree = "<group>";
