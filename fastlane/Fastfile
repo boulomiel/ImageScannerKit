@@ -1,0 +1,44 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Generate new localized screenshots"
+  lane :screenshots do
+    capture_screenshots(scheme: "ImageScannerKit")
+  end
+
+  desc "Build xcframework"
+  lane :build_xcframework do
+
+    puts 'Print working directory'
+    sh 'cd ..'
+
+    puts 'Build ios'
+    sh "cd .. && xcodebuild -scheme ImageScannerKit -destination 'generic/platform=iOS' -configuration Release BUILD_LIBRARY_FOR_DISTRIBUTION=YES build"
+
+    puts 'Build ios simulator'
+    sh "cd .. && xcodebuild -scheme ImageScannerKit -destination 'generic/platform=iOS Simulator' -configuration Release BUILD_LIBRARY_FOR_DISTRIBUTION=YES build"
+
+    puts 'Build xcframework'
+    sh "cd .. && xcodebuild -create-xcframework \
+-framework /Users/rubenmimoun/Library/Developer/Xcode/DerivedData/ImageScannerKit-gygtchoukzxghuemxnbohanyqvku/Build/Products/Release-iphoneos/ImageScannerKit.framework \
+-framework /Users/rubenmimoun/Library/Developer/Xcode/DerivedData/ImageScannerKit-gygtchoukzxghuemxnbohanyqvku/Build/Products/Release-iphonesimulator/ImageScannerKit.framework \
+-output ../xcframeworks/ImageScannerKit.xcframework"
+  end
+
+end
