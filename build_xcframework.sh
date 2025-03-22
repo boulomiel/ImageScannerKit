@@ -4,6 +4,9 @@
 SCHEME_NAME="ImageScannerKit"  # The scheme to build, e.g., "ImageScannerKit"
 FRAMEWORK_NAME="ImageScannerKit"  # The framework name, e.g., "ImageScannerKit"
 
+#Step 0: Remove Previous Creation
+rm -rf ./xcframeworks/
+
 # Step 1: Set Derived Data Path
 DERIVED_DATA_PATH=$(xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | awk '{print $3}')
 

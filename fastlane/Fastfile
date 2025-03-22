@@ -25,9 +25,6 @@ platform :ios do
   desc "Build xcframework"
   lane :build_xcframework do
 
-    puts 'Clean working directory'
-    sh 'cd .. && rm -rf xcframeworks && mkdir xcframeworks'
-
     puts 'Create XCFramework'
     sh 'cd .. && chmod +x build_xcframework.sh && ./build_xcframework.sh'
 
