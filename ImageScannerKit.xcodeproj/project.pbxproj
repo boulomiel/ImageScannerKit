@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		878545BD2D8EFAC300930121 /* ImageScannerKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878545B62D8EF3ED00930121 /* ImageScannerKit.xcframework */; };
+		878545BE2D8EFAC300930121 /* ImageScannerKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 878545B62D8EF3ED00930121 /* ImageScannerKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		878D3BBA2D703F0E007324B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BB92D703F0E007324B4 /* AVFoundation.framework */; };
 		878D3BBB2D703F18007324B4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878E85CD2D6EE55F00DF6AE8 /* CoreGraphics.framework */; };
 		878D3BBD2D703F29007324B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D3BBC2D703F29007324B4 /* CoreMedia.framework */; };
@@ -20,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8785459C2D8EF3CA00930121 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 878E85A42D6EE04400DF6AE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 878545892D8EF3C900930121;
+			remoteInfo = ISKXcframework;
+		};
 		878D3BC92D74152A007324B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 878E85A42D6EE04400DF6AE8 /* Project object */;
@@ -37,6 +46,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		878545BF2D8EFAC300930121 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				878545BE2D8EFAC300930121 /* ImageScannerKit.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		878D3BCB2D74152A007324B4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,6 +71,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8785458A2D8EF3C900930121 /* ISKXcframework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISKXcframework.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8785459B2D8EF3CA00930121 /* ISKXcframeworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ISKXcframeworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		878545B62D8EF3ED00930121 /* ImageScannerKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ImageScannerKit.xcframework; path = xcframeworks/ImageScannerKit.xcframework; sourceTree = "<group>"; };
 		878D3BB92D703F0E007324B4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		878D3BBC2D703F29007324B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		878D3BBE2D703F5C007324B4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
@@ -68,7 +91,17 @@
 		87B980372D89420500A5636C /* Exceptions for "Sources" folder in "ImageScannerKit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
-				ImageScannerKit/Camera/CameraHandler.hpp,
+				ImageScannerKit/Camera/CameraHandler.h,
+				ImageScannerKit/Camera/CameraHandlerDelegate.h,
+				ImageScannerKit/Camera/CameraHandlerFrameHolder.h,
+				ImageScannerKit/Image/Binary/Binary.h,
+				ImageScannerKit/Image/Brightness/Brightness.h,
+				ImageScannerKit/Image/Channel/Channel.h,
+				ImageScannerKit/Image/Contrast/Contrast.h,
+				ImageScannerKit/Image/Crop/Crop.h,
+				ImageScannerKit/Image/PerspectiveTransform/PerspectiveTransform.h,
+				ImageScannerKit/Image/Rotate/Rotate.h,
+				ImageScannerKit/Image/Sharpness/Sharpness.h,
 				ImageScannerKit/Image/UIImage.h,
 				ImageScannerKit/ImageScannerKit.h,
 				ImageScannerKit/ScannerPipeline/DocumentDetectorIOS/DocumentDetectorIOS.h,
@@ -77,17 +110,22 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		878545852D8A934B00930121 /* Exceptions for "Sources" folder in "Copy Bundle Resources" phase from "ImageScannerKit" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 878E85AB2D6EE04400DF6AE8 /* Resources */;
-			membershipExceptions = (
-				ImageScannerKit/module.modulemap,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8785458B2D8EF3C900930121 /* ISKXcframework */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ISKXcframework;
+			sourceTree = "<group>";
+		};
+		8785459E2D8EF3CA00930121 /* ISKXcframeworkTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ISKXcframeworkTests;
+			sourceTree = "<group>";
+		};
+		878545A82D8EF3CA00930121 /* ISKXcframeworkUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ISKXcframeworkUITests;
+			sourceTree = "<group>";
+		};
 		878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ImageScannerKitTemplate;
@@ -102,7 +140,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				87B980372D89420500A5636C /* Exceptions for "Sources" folder in "ImageScannerKit" target */,
-				878545852D8A934B00930121 /* Exceptions for "Sources" folder in "Copy Bundle Resources" phase from "ImageScannerKit" target */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -110,6 +147,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		878545872D8EF3C900930121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				878545BD2D8EFAC300930121 /* ImageScannerKit.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878545982D8EF3CA00930121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		878E85AA2D6EE04400DF6AE8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,6 +202,9 @@
 				87B980022D8941E500A5636C /* Sources */,
 				878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
 				878E85F02D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
+				8785458B2D8EF3C900930121 /* ISKXcframework */,
+				8785459E2D8EF3CA00930121 /* ISKXcframeworkTests */,
+				878545A82D8EF3CA00930121 /* ISKXcframeworkUITests */,
 				878E85AE2D6EE04400DF6AE8 /* Products */,
 				878E85C02D6EE08500DF6AE8 /* Frameworks */,
 			);
@@ -161,6 +216,8 @@
 				878E85AD2D6EE04400DF6AE8 /* ImageScannerKit.framework */,
 				878E85DC2D7027C100DF6AE8 /* ImageScannerKitTemplate.app */,
 				878E85ED2D7027C300DF6AE8 /* ImageScannerKitTemplateTests.xctest */,
+				8785458A2D8EF3C900930121 /* ISKXcframework.app */,
+				8785459B2D8EF3CA00930121 /* ISKXcframeworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +225,7 @@
 		878E85C02D6EE08500DF6AE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				878545B62D8EF3ED00930121 /* ImageScannerKit.xcframework */,
 				878D3BC32D703FED007324B4 /* QuartzCore.framework */,
 				878D3BC12D703F95007324B4 /* CoreImage.framework */,
 				878D3BBE2D703F5C007324B4 /* CoreVideo.framework */,
@@ -192,6 +250,52 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		878545892D8EF3C900930121 /* ISKXcframework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878545AD2D8EF3CA00930121 /* Build configuration list for PBXNativeTarget "ISKXcframework" */;
+			buildPhases = (
+				878545862D8EF3C900930121 /* Sources */,
+				878545872D8EF3C900930121 /* Frameworks */,
+				878545882D8EF3C900930121 /* Resources */,
+				878545BF2D8EFAC300930121 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8785458B2D8EF3C900930121 /* ISKXcframework */,
+			);
+			name = ISKXcframework;
+			packageProductDependencies = (
+			);
+			productName = ISKXcframework;
+			productReference = 8785458A2D8EF3C900930121 /* ISKXcframework.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8785459A2D8EF3CA00930121 /* ISKXcframeworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878545B02D8EF3CA00930121 /* Build configuration list for PBXNativeTarget "ISKXcframeworkTests" */;
+			buildPhases = (
+				878545972D8EF3CA00930121 /* Sources */,
+				878545982D8EF3CA00930121 /* Frameworks */,
+				878545992D8EF3CA00930121 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8785459D2D8EF3CA00930121 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8785459E2D8EF3CA00930121 /* ISKXcframeworkTests */,
+			);
+			name = ISKXcframeworkTests;
+			packageProductDependencies = (
+			);
+			productName = ISKXcframeworkTests;
+			productReference = 8785459B2D8EF3CA00930121 /* ISKXcframeworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 878E85B52D6EE04400DF6AE8 /* Build configuration list for PBXNativeTarget "ImageScannerKit" */;
@@ -272,6 +376,13 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					878545892D8EF3C900930121 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					8785459A2D8EF3CA00930121 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 878545892D8EF3C900930121;
+					};
 					878E85AC2D6EE04400DF6AE8 = {
 						CreatedOnToolsVersion = 16.2;
 						LastSwiftMigration = 1620;
@@ -302,11 +413,27 @@
 				878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */,
 				878E85DB2D7027C100DF6AE8 /* ImageScannerKitTemplate */,
 				878E85EC2D7027C300DF6AE8 /* ImageScannerKitTemplateTests */,
+				878545892D8EF3C900930121 /* ISKXcframework */,
+				8785459A2D8EF3CA00930121 /* ISKXcframeworkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		878545882D8EF3C900930121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878545992D8EF3CA00930121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		878E85AB2D6EE04400DF6AE8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,6 +458,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		878545862D8EF3C900930121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878545972D8EF3CA00930121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		878E85A92D6EE04400DF6AE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,6 +496,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8785459D2D8EF3CA00930121 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 878545892D8EF3C900930121 /* ISKXcframework */;
+			targetProxy = 8785459C2D8EF3CA00930121 /* PBXContainerItemProxy */;
+		};
 		878D3BCA2D74152A007324B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */;
@@ -368,6 +514,122 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		878545AE2D8EF3CA00930121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ISKXcframework/Preview Content\"";
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ISKXcframework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		878545AF2D8EF3CA00930121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ISKXcframework/Preview Content\"";
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ISKXcframework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		878545B12D8EF3CA00930121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ISKXcframeworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ISKXcframework.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ISKXcframework";
+			};
+			name = Debug;
+		};
+		878545B22D8EF3CA00930121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STFH26U9BW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moondev.ISKXcframeworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ISKXcframework.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ISKXcframework";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		878E85B62D6EE04400DF6AE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -712,6 +974,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		878545AD2D8EF3CA00930121 /* Build configuration list for PBXNativeTarget "ISKXcframework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878545AE2D8EF3CA00930121 /* Debug */,
+				878545AF2D8EF3CA00930121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		878545B02D8EF3CA00930121 /* Build configuration list for PBXNativeTarget "ISKXcframeworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878545B12D8EF3CA00930121 /* Debug */,
+				878545B22D8EF3CA00930121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		878E85A72D6EE04400DF6AE8 /* Build configuration list for PBXProject "ImageScannerKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

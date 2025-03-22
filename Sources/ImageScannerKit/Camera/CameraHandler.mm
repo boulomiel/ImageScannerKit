@@ -7,7 +7,7 @@
 
 #include "opencv2/imgcodecs/ios.h"
 
-#import "CameraHandler.hpp"
+#import "CameraHandler.h"
 #import "Erosion.hpp"
 #import "Thresholded.hpp"
 #import "GrayScale.hpp"

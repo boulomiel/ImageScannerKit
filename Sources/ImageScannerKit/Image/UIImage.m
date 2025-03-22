@@ -11,10 +11,19 @@
 #import "Contrast/Contrast.h"
 #import "Brightness/Brightness.h"
 #import "Sharpness/Sharpness.h"
+#import "Channel/Channel.h"
 
 #import "PerspectiveTransform/PerspectiveTransform.h"
 
 @implementation UIImage(OpencvExtension)
+
+/// Check if the current image contains 4 channels (RGBA, BGRA, HSVA...)
+/// - Parameter image: Image to be checked
+/// - Returns: true if the image is a four channel matrix
+-(bool) hasFourChannels: (UIImage *) image {
+    Channel *channel = [[Channel alloc] init];
+    return [channel hasFourChannels:self];
+}
 
 -(UIImage *)crop: (NSArray<NSValue *> *) toPoints {
     Crop *crop = [[Crop alloc] init];

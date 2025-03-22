@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DocumentDetectorIOS.h"
-#import "CameraHandler.hpp"
+#import "CameraHandler.h"
 #import "Erosion.hpp"
 #import "Thresholded.hpp"
 #import "GrayScale.hpp"

@@ -6,12 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Crop.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage(OpencvExtension)
 
+/// Check if the current image contains 4 channels (RGBA, BGRA, HSVA...)
+/// - Returns: true if the image is a four channel matrix
+-(bool) hasFourChannels;
 
 /// Crop image to points
 /// - Parameter toPoints: CGPoints into NSValue in this order: topLeft, topRight, bottomRight, bottomLeft
@@ -37,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Creates a adaptive threshold binary image  https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
 -(UIImage*) toAdaptiveBinary;
-
 
 /// Creates a adaptive threshold binary image  https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
 /// - Parameters:

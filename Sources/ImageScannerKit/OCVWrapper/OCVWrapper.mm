@@ -5,7 +5,7 @@
 //  Created by Ruben Mimoun on 26/02/2025.
 //
 
-#import "OCVWrapper.hpp"
+#import "OCVWrapper.h"
 
 #import <UIKit/UIKit.h>
 #import <opencv2/opencv.hpp>

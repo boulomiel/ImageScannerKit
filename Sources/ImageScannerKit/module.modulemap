@@ -1,4 +1,0 @@
-module ImageScannerKit {
-    header "ImageScannerKit.h"
-    export *
-}

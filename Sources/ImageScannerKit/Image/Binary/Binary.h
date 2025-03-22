@@ -14,8 +14,6 @@
 
 @interface Binary : NSObject
 
-
-
 /// Creates a adaptive threshold binary image  https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
 /// - Parameter image: Image to be thresholded
 -(UIImage*) toAdaptiveBinary: (UIImage*) image;
