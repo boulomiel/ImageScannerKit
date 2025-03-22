@@ -14,7 +14,7 @@
 
 #import "PerspectiveTransform/PerspectiveTransform.h"
 
-@implementation UIImage(Crop)
+@implementation UIImage(OpencvExtension)
 
 -(UIImage *)crop: (NSArray<NSValue *> *) toPoints {
     Crop *crop = [[Crop alloc] init];

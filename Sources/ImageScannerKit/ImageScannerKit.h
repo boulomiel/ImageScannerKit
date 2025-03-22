@@ -18,3 +18,13 @@ FOUNDATION_EXPORT const unsigned char ImageScannerKitVersionString[];
 #import "OCVWrapper.hpp"
 #import "CameraHandler.hpp"
 #import "DocumentDetectorIOS.h"
+#import "Crop.h"
+#import "Binary.h"
+#import "Contrast.h"
+#import "PerspectiveTransform.h"
+#import "Rotate.h"
+#import "Sharpness.h"
+
+
+
+

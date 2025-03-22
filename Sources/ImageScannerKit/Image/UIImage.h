@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImage (Crop)
+@interface UIImage(OpencvExtension)
 
 
 /// Crop image to points
@@ -64,3 +64,17 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface OpencvExtension
+
+@end
+
+@implementation OpencvExtension
+
+
+@end
+
+NS_ASSUME_NONNULL_END
+
