@@ -125,7 +125,28 @@ struct ContentView: View {
 }
 
 
+struct ImageMethod: View {
+    
+    @State var image: UIImage = .init(named: "paperplane")!
+    
+    var body: some View {
+        VStack {
+            Image(uiImage: image)
+            HStack {
+                Button("brighness"){
+                    image.brightness(<#T##value: Float##Float#>)
+                }
+            }
+        }
+    }
+    
+}
+
+
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+}
+
+#Preview {
+    ImageMethod()
 }
