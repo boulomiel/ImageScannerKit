@@ -1,3 +1,11 @@
+
+#xcframeworks
 opencv2.xcframework
 xcframeworks/* 
-Fastlane/report.xml
+
+#fastlane
+fastlane/report.xml
+
+
+#userstate
+ImageScannerKit.xcodeproj/project.xcworkspace/xcuserdata/rubenmimoun.xcuserdatad/UserInterfaceState.xcuserstate
