@@ -9,3 +9,6 @@ fastlane/report.xml
 
 #userstate
 ImageScannerKit.xcodeproj/project.xcworkspace/xcuserdata/rubenmimoun.xcuserdatad/UserInterfaceState.xcuserstate
+
+#build
+build/*
