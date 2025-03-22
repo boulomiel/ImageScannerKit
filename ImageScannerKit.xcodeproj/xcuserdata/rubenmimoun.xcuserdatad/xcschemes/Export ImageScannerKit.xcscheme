@@ -10,56 +10,8 @@
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
-               title = "Clean"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;xcodebuild clean -scheme ImageScannerKit -configuration Release&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "878E85AC2D6EE04400DF6AE8"
-                     BuildableName = "ImageScannerKit.framework"
-                     BlueprintName = "ImageScannerKit"
-                     ReferencedContainer = "container:ImageScannerKit.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Build IOS"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cd &quot;$PROJECT_DIR&quot;&#10;xcodebuild -scheme ImageScannerKit -destination &apos;generic/platform=iOS&apos; -configuration Release BUILD_LIBRARY_FOR_DISTRIBUTION=YES build&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "878E85AC2D6EE04400DF6AE8"
-                     BuildableName = "ImageScannerKit.framework"
-                     BlueprintName = "ImageScannerKit"
-                     ReferencedContainer = "container:ImageScannerKit.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Build Simulator"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cd &quot;$PROJECT_DIR&quot;&#10;xcodebuild -scheme ImageScannerKit -destination &apos;generic/platform=iOS Simulator&apos; -configuration Release BUILD_LIBRARY_FOR_DISTRIBUTION=YES build&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "878E85AC2D6EE04400DF6AE8"
-                     BuildableName = "ImageScannerKit.framework"
-                     BlueprintName = "ImageScannerKit"
-                     ReferencedContainer = "container:ImageScannerKit.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
                title = "Build Xcframework"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cd &quot;$PROJECT_DIR&quot;&#10;xcodebuild -create-xcframework \&#10;-framework /Users/rubenmimoun/Library/Developer/Xcode/DerivedData/ImageScannerKit-gygtchoukzxghuemxnbohanyqvku/Build/Products/Release-iphoneos/ImageScannerKit.framework \&#10;-framework /Users/rubenmimoun/Library/Developer/Xcode/DerivedData/ImageScannerKit-gygtchoukzxghuemxnbohanyqvku/Build/Products/Release-iphonesimulator/ImageScannerKit.framework \&#10;-output ./xcframeworks/ImageScannerKit.xcframework&#10;">
+               scriptText = "&#10;# Make the script executable&#10;chmod +x &quot;${SOURCE_ROOT}/build_xcframework_xcode.sh&quot;&#10;&#10;# Run the script&#10;&quot;${SOURCE_ROOT}/build_xcframework_xcode.sh&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
@@ -106,6 +58,24 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&#10;# Make the script executable&#10;chmod +x &quot;${SOURCE_ROOT}/build_xcframework.sh&quot;&#10;&#10;# Run the script&#10;&quot;${SOURCE_ROOT}/build_xcframework_xcode.sh&quot;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "878E85AC2D6EE04400DF6AE8"
+                     BuildableName = "ImageScannerKit.framework"
+                     BlueprintName = "ImageScannerKit"
+                     ReferencedContainer = "container:ImageScannerKit.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

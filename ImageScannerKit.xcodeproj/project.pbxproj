@@ -77,6 +77,16 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		878545852D8A934B00930121 /* Exceptions for "Sources" folder in "Copy Bundle Resources" phase from "ImageScannerKit" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 878E85AB2D6EE04400DF6AE8 /* Resources */;
+			membershipExceptions = (
+				ImageScannerKit/module.modulemap,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		878E85DD2D7027C100DF6AE8 /* ImageScannerKitTemplate */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -92,6 +102,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				87B980372D89420500A5636C /* Exceptions for "Sources" folder in "ImageScannerKit" target */,
+				878545852D8A934B00930121 /* Exceptions for "Sources" folder in "Copy Bundle Resources" phase from "ImageScannerKit" target */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
