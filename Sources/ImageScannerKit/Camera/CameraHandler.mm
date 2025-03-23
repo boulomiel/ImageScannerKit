@@ -124,7 +124,7 @@ NSOperationQueue *cameraOperationQueue;
     image.copyTo(copy);
     __weak typeof(self) weakSelf = self;
     
-    [detector detectDocumentIn:copy completion:^(Mat processedImage, std::vector<cv::Point> cornerPoints) {
+    [detector detectDocumentIn:image completion:^(Mat processedImage, std::vector<cv::Point> cornerPoints) {
         dispatch_async(dispatch_get_main_queue(), ^{
             PointToCGConverter *converter = [[PointToCGConverter alloc] init];
             NSArray<NSValue*> *convertedPoints = [converter convertPoint:cornerPoints];

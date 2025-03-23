@@ -46,9 +46,9 @@ using namespace cv;
     });
    
     grayScale->setNext(blurry);
-    blurry->setNext(closeErosion);
-    closeErosion->setNext(thresHolded);
-    thresHolded->setNext(openErosion);
+    blurry->setNext(thresHolded);
+    thresHolded->setNext(closeErosion);
+    closeErosion->setNext(openErosion);
     openErosion->setNext(canny);
     canny->setNext(detectPolygon);
     
