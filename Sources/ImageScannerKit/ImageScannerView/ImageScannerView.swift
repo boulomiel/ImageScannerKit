@@ -11,134 +11,78 @@ import Combine
 
 public struct ImageScannerView: View {
     
-    public var isFlashEnabled: Binding<Bool>
+    let cameraViewHandler: CameraView.CameraViewHandler
     public var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     public var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     
-    public init(isFlashEnabled: Binding<Bool>,
+    public init(cameraViewHandler: CameraView.CameraViewHandler,
                 onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
                 onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in}) {
-        self.isFlashEnabled = isFlashEnabled
+        self.cameraViewHandler = cameraViewHandler
         self.onDocumentDetected = onDocumentDetected
         self.onDocumentSnapped = onDocumentSnapped
     }
-    
-    public init(onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
-                onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in}) {
-        self.isFlashEnabled = .constant(false)
-        self.onDocumentDetected = onDocumentDetected
-        self.onDocumentSnapped = onDocumentSnapped
-    }
-    
-    public init() {
-        self.isFlashEnabled = .constant(false)
-        self.onDocumentDetected = { _, _ in}
-        self.onDocumentSnapped = { _, _ in}
+        
+    public init(cameraViewHandler: CameraView.CameraViewHandler) {
+        self.cameraViewHandler = cameraViewHandler
     }
     
     public var body: some View {
 #if targetEnvironment(simulator)
         ContentUnavailableView("No camera in simulator", systemImage: "camera")
 #else
-        CameraView(isFlashEnabled: isFlashEnabled,
+        CameraView(cameraViewHandler: cameraViewHandler,
                    onDocumentDetected: onDocumentDetected,
                    onDocumentSnapped: onDocumentSnapped)
 #endif
     }
 }
 
-public struct CameraView: UIViewRepresentable {
-    
-    public typealias UIViewType = UIImageView
-    
-    @Binding var isFlashEnabled: Bool
-    var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void
-    var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void
-    
-    public init(isFlashEnabled: Binding<Bool>,
-                onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void,
-                onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void) {
-        self._isFlashEnabled = isFlashEnabled
-        self.onDocumentDetected = onDocumentDetected
-        self.onDocumentSnapped = onDocumentSnapped
-    }
-    
-    public func makeUIView(context: Context) -> UIImageView {
-        context.coordinator.start()
-        return context.coordinator.frameView
-    }
-    
-    public func updateUIView(_ uiView: UIImageView, context: Context) {
-        context.coordinator.cameraHandler.toggleFlash(isFlashEnabled)
-    }
-    
-    public func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self, onDocumentDetected: onDocumentDetected, onDocumentSnapped: onDocumentSnapped)
-    }
-    
-    @MainActor
-    public class Coordinator: NSObject, CameraHandlerFrameHolder, CameraHandlerDelegate {
-        
-        lazy var cameraHandler: CameraHandler = .init(frameHolder: self, andDelegate: self)
-        public var frameView: UIImageView = .init(image: nil)
-        var parent: CameraView
-        var DocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void
-        var DocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void
-        
-        init(parent: CameraView,
-             uiImage: UIImage? = nil,
-             onDocumentDetected: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void,
-             onDocumentSnapped: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void
-        ) {
-            self.parent = parent
-            self.frameView = .init(image: uiImage)
-            self.DocumentSnapped = onDocumentSnapped
-            self.DocumentDetected = onDocumentDetected
-        }
-        
-        func start() {
-            cameraHandler.startCamera()
-        }
-        
-        public func onDocumentSnapped(_ points: [Any], andImage uiImage: UIImage) {
-            let cgPoints = points.compactMap { $0 as? NSValue }
-            print("Swift !", "snapped", cgPoints)
-            DocumentSnapped(cgPoints, uiImage)
-            cameraHandler.stopCamera()
-        }
-        
-        public func onDocumentDetected(_ points: [Any], andImage uiImage: UIImage) {
-            let cgPoints = points.compactMap { $0 as? NSValue }
-            DocumentDetected(cgPoints, uiImage)
-        }
-    }
-}
-
 public extension ImageScannerView {
     
-    func isFlashEnabled(_ enabled: Binding<Bool>) -> Self {
+    func isFlashEnabled(_ enabled: Bool) -> Self {
         let copy = self
-        return ImageScannerView(isFlashEnabled: enabled, onDocumentDetected: copy.onDocumentDetected, onDocumentSnapped: copy.onDocumentSnapped)
+        cameraViewHandler.setFlashEnabled(enabled)
+        return ImageScannerView(cameraViewHandler: cameraViewHandler,
+                                onDocumentDetected: copy.onDocumentDetected,
+                                onDocumentSnapped: copy.onDocumentSnapped)
     }
     
+    
+    /// Overrides onDocumentDetected from the CameraHandler
+    /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
+    /// - Returns: ImageScannerView
     func onDocumentDetected(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
         let copy = self
-        return ImageScannerView(isFlashEnabled: copy.isFlashEnabled, onDocumentDetected: callback, onDocumentSnapped: copy.onDocumentSnapped)
+        cameraViewHandler.DocumentDetected = callback
+        return ImageScannerView(cameraViewHandler: cameraViewHandler,
+                                onDocumentDetected: callback,
+                                onDocumentSnapped: copy.onDocumentSnapped)
     }
     
+    /// Overrides onDocumentSnapped from the CameraHandler
+    /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
+    /// - Returns: ImageScannerView
     func onDocumentSnapped(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
         let copy = self
-        return ImageScannerView(isFlashEnabled: copy.isFlashEnabled, onDocumentDetected: copy.onDocumentDetected, onDocumentSnapped: callback)
+        cameraViewHandler.DocumentSnapped = callback
+        return ImageScannerView(cameraViewHandler: cameraViewHandler,
+                                onDocumentDetected: copy.onDocumentDetected,
+                                onDocumentSnapped: callback)
     }
 }
 
 #Preview {
-    ImageScannerView()
-        .isFlashEnabled(.constant(false))
-        .onDocumentDetected { points, uiImage in
-            
-        }
-        .onDocumentSnapped { points, uiImage in
-            
-        }
+    ImageScannerView(cameraViewHandler: .init(onDocumentDetected: { points, uiImage in
+        
+    }, onDocumentSnapped: { points, uiImage in
+        
+    }))
+    .isFlashEnabled(false)
+    .onDocumentDetected { points, uiImage in
+        
+    }
+    .onDocumentSnapped { points, uiImage in
+        
+    }
 }
