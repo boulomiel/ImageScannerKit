@@ -16,6 +16,9 @@ struct ContentView: View {
     
     var body: some View {
         DocumentScannerView(cameraViewHandler: handler)
+//            .addActionOnDocumentSnapped { pts, img in
+//                print("Action Added")
+//            }
             .overlay(alignment: .top) {
                 Button("Flash") {
                     handler.setFlashEnabled(true)

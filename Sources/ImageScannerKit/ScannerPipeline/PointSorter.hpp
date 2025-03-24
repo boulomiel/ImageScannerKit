@@ -17,9 +17,9 @@ public:
     std::vector<std::vector<cv::Point>> sort() {
         auto copyMap(currentPointsMap);
         std::vector<std::vector<cv::Point>> sortedIndexPoints = { {}, {}, {}, {} };
-        for (int k = 0; k < currentMapKey; k++) {
+        for (int k = 0; k < 4; k++) {
             auto pair = copyMap[k];
-            for (int i = 0; i < currentMapKey; i++) {
+            for (int i = 0; i < 4; i++) {
                 auto point = *pair[i].begin();
                 sortedIndexPoints[i].push_back(point);
             }

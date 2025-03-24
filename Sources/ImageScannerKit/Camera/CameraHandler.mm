@@ -130,14 +130,17 @@ NSOperationQueue *cameraOperationQueue;
             NSArray<NSValue*> *convertedPoints = [converter convertPoint:cornerPoints];
             [weakSelf.delegate onDocumentDetected:convertedPoints andImage:MatToUIImage(processedImage)];
         });
-        if (cornerPoints.empty()){
+        
+        if(cornerPoints.empty()) {
             return;
         }
+        
         if (isUIDetectionActivated) {
             Mat mask = Mat::zeros(image.size(), CV_8UC4);
             fillPoly(mask, cornerPoints, cv::Scalar(165, 255, 128, 255));
             addWeighted(image, 1.0, mask, 0.8, 0.0, image);
         }
+        
         if (!isAutoDetectionActivated) {
             return;
         }

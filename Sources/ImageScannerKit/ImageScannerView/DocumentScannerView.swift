@@ -9,13 +9,14 @@
 import SwiftUI
 import Combine
 
-public struct DocumentScannerView: View {
+public struct DocumentScannerView: ImageScannerViewProtocol {
     
     let snappedEvent: PassthroughSubject<Flow, Never> = .init()
     @State var flow: Flow = .camera
     @State var detectedPoint: [CGPoint] = []
     @State var scaleX: Double = 0.0
     @State var scaleY: Double = 0.0
+    @State private var vector: AnimatableVector = .zero
     @Namespace var perspective
     
     public let cameraViewHandler: CameraView.CameraViewHandler
@@ -32,6 +33,7 @@ public struct DocumentScannerView: View {
     
     public init(cameraViewHandler: CameraView.CameraViewHandler) {
         self.cameraViewHandler = cameraViewHandler
+        cameraViewHandler.startCamera()
     }
     
     public var body: some View {
@@ -48,9 +50,6 @@ public struct DocumentScannerView: View {
         switch flow {
         case .camera:
             scanView()
-                .onAppear {
-                    cameraViewHandler.startCamera()
-                }
         case .snap(let image):
             snapView(image: image)
         case .cropped(let previous, let image):
@@ -64,6 +63,7 @@ public struct DocumentScannerView: View {
     
     func scanView() -> some View {
         GeometryReader { geo in
+            let size = geo.size
             ImageScannerView(cameraViewHandler: cameraViewHandler)
                 .onDocumentDetected { points, uiImage in
                     let pts = points.map { $0.cgPointValue }
@@ -71,16 +71,28 @@ public struct DocumentScannerView: View {
                         if points.isEmpty {
                             scaleX = 1.0
                             scaleY = 1.0
-                            detectedPoint = []
+                            detectedPoint = [.zero, .init(x: size.width, y: 0), .init(x: size.width, y: size.height), .init(x: 0, y: size.height)]
+                            vector = .init(values: [
+                                0, 0,
+                                size.width, 0,
+                                size.width, size.height,
+                                0, size.height
+                            ])
                         } else {
                             scaleX = geo.size.width / uiImage.size.width
                             scaleY = geo.size.height / uiImage.size.height
                             detectedPoint = [
-                                pts[3],
-                                pts[2],
+                                pts[0],
                                 pts[1],
-                                pts[0]
+                                pts[2],
+                                pts[3]
                             ]
+                            vector = .init(values: [
+                                pts[0].x * scaleX, pts[0].y * scaleY,
+                                pts[1].x * scaleX, pts[1].y * scaleY,
+                                pts[2].x * scaleX, pts[2].y * scaleY,
+                                pts[3].x * scaleX, pts[3].y * scaleY,
+                            ])
                         }
                     }
                 }
@@ -90,7 +102,7 @@ public struct DocumentScannerView: View {
                     snappedEvent.send(.cropped(previous: snapped, image: cropped))
                 }
                 .overlay {
-                    DocumentShape(detectedPoint: detectedPoint, scaleX: scaleX, scaleY: scaleY)
+                    DocumentShape(vector: vector)
                         .stroke(style: .init(lineWidth: 4, lineCap: .round, dash: [8]))
                 }
         }
@@ -114,28 +126,16 @@ public struct DocumentScannerView: View {
     }
     
     func croppedView(previous: Snapped, image: Snapped) -> some View {
-        ZStack {
-            LightScannerAnimatedView {
-                ImageLayer(snappedEvent: snappedEvent, snapped: previous)
-            }
+        LightScannerAnimatedView {
+            ImageLayer(snappedEvent: snappedEvent, snapped: previous)
+        }
+        .overlay(content: {
             ImageLayer(snappedEvent: snappedEvent, snapped: image)
                 .shadow(radius: 8)
-                .matchedGeometryEffect(id: "P", in: perspective)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Back") {
-                            snappedEvent.send(.camera)
-                        }
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("transform") {
-                            snappedEvent.send(.perspective(image: .init(uiImage: image.perspectiveTransformed(), points: image.points)))
-                        }
-                    }
-                }
-        }
+        })
         .onTapGesture {
             snappedEvent.send(.camera)
+            cameraViewHandler.setAutoDetectionEnabled(true)
         }
     }
     

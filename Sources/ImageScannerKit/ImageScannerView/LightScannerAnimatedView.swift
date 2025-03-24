@@ -24,29 +24,27 @@ public struct LightScannerAnimatedView<OnView: View>: View {
     public  var body: some View {
         GeometryReader { geo in
             let size = geo.size
-            ZStack {
-                view()
-                    .blur(radius: blurView, opaque: true)
-                    .position(x: size.width * 0.5, y: size.height * 0.5)
-                
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.white)
-                    .frame(height: rectHeight)
-                    .blur(radius: blurRect, opaque: false)
-                    .opacity(rectOpacity)
-                    .shadow(radius: 12)
-                    .position(x: size.width * 0.5, y: rectY)
-                
-            }
-            .onAppear {
-                withAnimation(.linear(duration: 2.0).repeatForever()) {
-                    rectY = geo.size.height
-                    blurRect = 12
-                    blurView = 20
-                    rectOpacity = 0.4
-                    rectHeight = 70
+            view()
+                .blur(radius: blurView, opaque: true)
+                .position(x: size.width * 0.5, y: size.height * 0.5)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white)
+                        .frame(height: rectHeight)
+                        .blur(radius: blurRect, opaque: false)
+                        .opacity(rectOpacity)
+                        .shadow(radius: 12)
+                        .position(x: size.width * 0.5, y: rectY)
                 }
-            }
+                .onAppear {
+                    withAnimation(.linear(duration: 2.0).repeatForever()) {
+                        rectY = geo.size.height
+                        blurRect = 12
+                        blurView = 20
+                        rectOpacity = 0.4
+                        rectHeight = 70
+                    }
+                }
         }
     }
 }

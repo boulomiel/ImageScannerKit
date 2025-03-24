@@ -30,15 +30,15 @@ public:
     };
     
     void addPoints(std::vector<cv::Point> points, cv::Mat mat) {
-        if (currentMapKey == 4) { return; };
+        if (currentMapKey == 8) { return; };
         
-        while (currentPointsMap[currentMapKey].size() > 3) {
+        while (currentPointsMap[currentMapKey].size() > 3 && currentMapKey <= 8) {
             currentMapKey += 1;
         };
         
         currentPointsMap[currentMapKey].push_back(points);
-        
-        if (currentMapKey == 4) {
+        lastAddedPoints = points;
+        if (currentMapKey == 8) {
             check(mat);
         };
     };
@@ -47,6 +47,7 @@ private:
     //MARK: - Properties
     int currentMapKey = 0 ;
     std::map<int, std::vector<std::vector<cv::Point>>> currentPointsMap;
+    std::vector<cv::Point> lastAddedPoints;
     std::optional<SnapCallback> onSnap;
     
     void check(cv::Mat mat) {
@@ -57,12 +58,12 @@ private:
         auto isFrameValid = validator->validate();
         
         if (isFrameValid) {
-            std::vector<cv::Point> points = currentPointsMap[currentMapKey][0];
             if (onSnap.has_value()) {
-                onSnap.value()(points, mat);
+                onSnap.value()(lastAddedPoints, mat);
             };
         }
         currentPointsMap.clear();
+        lastAddedPoints.clear();
         currentMapKey = 0;
     };
 };

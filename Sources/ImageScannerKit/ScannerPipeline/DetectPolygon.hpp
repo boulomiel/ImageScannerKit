@@ -29,6 +29,7 @@ public:
         contours = filterContours(50.0, minArea, imageCenter, contours);
         
         if (contours.empty()) {
+            pointCallback({});
             return;
         }
         int index = getMaxContourIndex(contours);

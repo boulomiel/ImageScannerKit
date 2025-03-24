@@ -6,50 +6,71 @@
 //
 
 import SwiftUI
+import enum Accelerate.vDSP
+
+public struct AnimatableVector: VectorArithmetic, Sendable {
+    
+    nonisolated(unsafe) public static var zero = AnimatableVector(values: [0.0])
+
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        let count = max(lhs.values.count, rhs.values.count)
+        let lhs = lhs.values + Array(repeating: 0, count: count - lhs.values.count)
+        let rhs = rhs.values + Array(repeating: 0, count: count - rhs.values.count)
+        return AnimatableVector(values: vDSP.add(lhs, rhs))
+    }
+
+    public static func - (lhs: Self, rhs: Self) -> Self {
+        let count = max(lhs.values.count, rhs.values.count)
+        let lhs = lhs.values + Array(repeating: 0, count: count - lhs.values.count)
+        let rhs = rhs.values + Array(repeating: 0, count: count - rhs.values.count)
+        return AnimatableVector(values: vDSP.subtract(lhs, rhs))
+    }
+
+    public var values: [Double]
+
+    public  mutating func scale(by rhs: Double) {
+        values = vDSP.multiply(rhs, values)
+    }
+
+    public var magnitudeSquared: Double {
+        vDSP.sum(vDSP.multiply(values, values))
+    }
+
+}
 
 public struct DocumentShape: Shape {
     
     var detectedPoint: [CGPoint]
     var scaleX: Double
     var scaleY: Double
+    var size: CGSize
     
-    public init(detectedPoint: [CGPoint], scaleX: Double, scaleY: Double) {
-        self.detectedPoint = detectedPoint
-        self.scaleX = scaleX
-        self.scaleY = scaleY
+    var vector: AnimatableVector
+
+    public var animatableData: AnimatableVector {
+        get { vector }
+        set { vector = newValue }
     }
     
-    public var animatableData: AnimatablePair<Double, Double> {
-        get { .init(scaleX, scaleY) }
-        set {
-            scaleX = newValue.first
-            scaleY = newValue.second
-        }
-    }
-    
-    func scalePoints(points: [CGPoint], to size: CGSize) -> [CGPoint] {
-        if points.isEmpty {
-            return []
-        } else {
-            let newPoints = points.map { point in
-                let scaledX = point.x * scaleX
-                let scaledY = point.y * scaleY
-                return CGPoint(x: scaledX, y: scaledY)
-            }
-            return newPoints
-        }
+    public init(vector: AnimatableVector) {
+        self.vector = vector
+        self.detectedPoint = []
+        self.scaleX = 1
+        self.scaleY = 10
+        self.size = .zero
     }
     
     public func path(in rect: CGRect) -> Path {
-        
-        let points = scalePoints(points: detectedPoint, to: rect.size)
-        
+        guard vector.values.count > 2 else {
+            return Path { _ in }
+        }
         return Path { path in
-            guard let firstPoint = points.first else { return }
-            path.move(to: .init(x: firstPoint.x, y: firstPoint.y))
-            for point in points.dropFirst() {
-                path.addLine(to: .init(x: point.x, y: point.y))
-            }
+            let xStep = rect.width / CGFloat(vector.values.count)
+            var currentX: CGFloat = xStep
+            path.move(to: .init(x: vector.values[0], y: vector.values[1]))
+            path.addLine(to: .init(x: vector.values[2], y: vector.values[3]))
+            path.addLine(to: .init(x: vector.values[4], y: vector.values[5]))
+            path.addLine(to: .init(x: vector.values[6], y: vector.values[7]))
             path.closeSubpath()
         }
     }

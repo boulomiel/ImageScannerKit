@@ -32,25 +32,30 @@ public struct CameraView: UIViewRepresentable {
        
     }
     
+    @Observable
     public class CameraViewHandler: NSObject, CameraHandlerFrameHolder, CameraHandlerDelegate {
         
-        lazy var cameraHandler: CameraHandler = .init(frameHolder: self, andDelegate: self)
+        var cameraHandler: CameraHandler!
         public var frameView: UIImageView = .init(image: nil)
-        var DocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void
-        var DocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void
+        var DocumentDetected: [(_ points: [NSValue], _ uiImage: UIImage) -> Void]
+        var DocumentSnapped: [(_ points: [NSValue], _ uiImage: UIImage) -> Void]
         
         public init(onDocumentDetected: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void,
                     onDocumentSnapped: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void
         ) {
             self.frameView = .init(image: nil)
-            self.DocumentSnapped = onDocumentSnapped
-            self.DocumentDetected = onDocumentDetected
+            self.DocumentSnapped = [onDocumentSnapped]
+            self.DocumentDetected = [onDocumentDetected]
+            super.init()
+            self.cameraHandler = .init(frameHolder: self, andDelegate: self)
         }
         
         public override init() {
             self.frameView = .init(image: nil)
-            self.DocumentSnapped = { _, _ in }
-            self.DocumentDetected = { _, _ in }
+            self.DocumentSnapped = [{ _, _ in }]
+            self.DocumentDetected = [{ _, _ in }]
+            super.init()
+            self.cameraHandler = .init(frameHolder: self, andDelegate: self)
         }
         
         public func startCamera() {
@@ -74,15 +79,20 @@ public struct CameraView: UIViewRepresentable {
         }
         
         public func onDocumentSnapped(_ points: [Any], andImage uiImage: UIImage) {
+            setAutoDetectionEnabled(false)
             let cgPoints = points.compactMap { $0 as? NSValue }
             print("Swift !", "snapped", cgPoints)
-            DocumentSnapped(cgPoints, uiImage)
-            cameraHandler.stopCamera()
+            DocumentSnapped.forEach { action in
+                action(cgPoints, uiImage)
+            }
+         //   cameraHandler.stopCamera()
         }
         
         public func onDocumentDetected(_ points: [Any], andImage uiImage: UIImage) {
             let cgPoints = points.compactMap { $0 as? NSValue }
-            DocumentDetected(cgPoints, uiImage)
+            DocumentDetected.forEach { action in
+                action(cgPoints, uiImage)
+            }
         }
     }
 }
