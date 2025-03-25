@@ -63,7 +63,7 @@ public extension ImageScannerViewProtocol {
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func onDocumentDetected(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentDetected = [callback]
+        cameraViewHandler.DocumentDetected.insert(callback, at: 0)
         return .init(cameraViewHandler: cameraViewHandler,
                                 onDocumentDetected: callback,
                                 onDocumentSnapped: onDocumentSnapped)
@@ -73,7 +73,7 @@ public extension ImageScannerViewProtocol {
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func onDocumentSnapped(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentSnapped = [callback]
+        cameraViewHandler.DocumentSnapped.insert(callback, at: 0)
         return .init(cameraViewHandler: cameraViewHandler,
                                 onDocumentDetected: onDocumentDetected,
                                 onDocumentSnapped: callback)
