@@ -12,13 +12,13 @@ import Combine
 
 struct ContentView: View {
     
-    let handler = CameraView.CameraViewHandler()
-    
+    @Environment(\.cameraHandler) var handler
+        
     var body: some View {
-        DocumentScannerView(cameraViewHandler: handler)
-//            .addActionOnDocumentSnapped { pts, img in
-//                print("Action Added")
-//            }
+        DocumentScannerView()
+            .addActionOnDocumentSnapped { pts, img in
+                print("Action Added")
+            }
             .overlay(alignment: .top) {
                 Button("Flash") {
                     handler.setFlashEnabled(true)

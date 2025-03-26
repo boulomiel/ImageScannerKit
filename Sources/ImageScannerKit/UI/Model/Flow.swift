@@ -7,7 +7,6 @@
 
 public enum Flow {
     case camera
-    case snap(image: Snapped)
-    case cropped(previous: Snapped, image: Snapped)
+    case snap(previous: Snapped, image: Snapped)
     case perspective(image: Snapped)
 }

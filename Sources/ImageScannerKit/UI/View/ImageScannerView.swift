@@ -10,33 +10,30 @@ import SwiftData
 import Combine
 
 public protocol ImageScannerViewProtocol: View {
-    var cameraViewHandler: CameraView.CameraViewHandler { get }
     var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void { get set}
     var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void { get set}
     
-    init(cameraViewHandler: CameraView.CameraViewHandler,
-                onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void,
-                onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void)
+    init(onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void,
+         onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void)
     
-    init(cameraViewHandler: CameraView.CameraViewHandler)
+    init()
 }
 
 public struct ImageScannerView: ImageScannerViewProtocol {
     
-    public let cameraViewHandler: CameraView.CameraViewHandler
+    @Environment(\.cameraHandler) var cameraViewHandler
+
     public var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     public var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     
-    public init(cameraViewHandler: CameraView.CameraViewHandler,
-                onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
+    public init(onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
                 onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in}) {
-        self.cameraViewHandler = cameraViewHandler
         self.onDocumentDetected = onDocumentDetected
         self.onDocumentSnapped = onDocumentSnapped
     }
         
-    public init(cameraViewHandler: CameraView.CameraViewHandler) {
-        self.cameraViewHandler = cameraViewHandler
+    public init() {
+      
     }
     
     public var body: some View {
@@ -53,59 +50,52 @@ public struct ImageScannerView: ImageScannerViewProtocol {
 public extension ImageScannerViewProtocol {
     
     func isFlashEnabled(_ enabled: Bool) -> Self {
-        cameraViewHandler.setFlashEnabled(enabled)
-        return .init(cameraViewHandler: cameraViewHandler,
-                                onDocumentDetected: onDocumentDetected,
-                                onDocumentSnapped: onDocumentSnapped)
+        SharedCamera.shared.cameraViewHandler.setFlashEnabled(enabled)
+        return .init(
+            onDocumentDetected: onDocumentDetected,
+            onDocumentSnapped: onDocumentSnapped
+        )
     }
     
     /// Overrides onDocumentDetected from the CameraHandler
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func onDocumentDetected(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentDetected.insert(callback, at: 0)
-        return .init(cameraViewHandler: cameraViewHandler,
-                                onDocumentDetected: callback,
-                                onDocumentSnapped: onDocumentSnapped)
+        SharedCamera.shared.cameraViewHandler.DocumentDetected = callback
+        return .init(onDocumentDetected: callback,
+                     onDocumentSnapped: onDocumentSnapped)
     }
     
     /// Overrides onDocumentSnapped from the CameraHandler
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func onDocumentSnapped(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentSnapped.insert(callback, at: 0)
-        return .init(cameraViewHandler: cameraViewHandler,
-                                onDocumentDetected: onDocumentDetected,
-                                onDocumentSnapped: callback)
+        SharedCamera.shared.cameraViewHandler.DocumentSnapped = callback
+        return .init(onDocumentDetected: onDocumentDetected,
+                     onDocumentSnapped: callback)
     }
     
     /// Add an action to the current DocumentDetected action from the CameraHandler
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func addActionOnDocumentDetected(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentDetected.append(callback)
-        return .init(cameraViewHandler: cameraViewHandler,
-                                onDocumentDetected: callback,
-                                onDocumentSnapped: onDocumentSnapped)
+        SharedCamera.shared.cameraViewHandler.moreDetectionActions.append(callback)
+        return .init(onDocumentDetected: callback,
+                     onDocumentSnapped: onDocumentSnapped)
     }
     
     /// Add an action to the current DocumentSnapped action from the CameraHandler
     /// - Parameter callback: reports an nsarray or corners and the frame image from which corners have been discovered
     /// - Returns: ImageScannerView
     func addActionOnDocumentSnapped(_ callback: @escaping (_ points: [NSValue], _ uiImage: UIImage) -> Void) -> Self {
-        cameraViewHandler.DocumentSnapped.append(callback)
-        return .init(cameraViewHandler: cameraViewHandler,
-                                onDocumentDetected: onDocumentDetected,
-                                onDocumentSnapped: callback)
+        SharedCamera.shared.cameraViewHandler.moreSnappedActions.append(callback)
+        return .init(onDocumentDetected: onDocumentDetected,
+                     onDocumentSnapped: callback)
     }
 }
 
 #Preview {
-    ImageScannerView(cameraViewHandler: .init(onDocumentDetected: { points, uiImage in
-        
-    }, onDocumentSnapped: { points, uiImage in
-        
-    }))
+    ImageScannerView()
     .isFlashEnabled(false)
     .onDocumentDetected { points, uiImage in
         

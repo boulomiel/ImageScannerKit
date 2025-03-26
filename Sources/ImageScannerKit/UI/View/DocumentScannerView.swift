@@ -11,7 +11,8 @@ import Combine
 
 public struct DocumentScannerView: ImageScannerViewProtocol {
     
-    let snappedEvent: PassthroughSubject<Flow, Never> = .init()
+    @Environment(\.cameraHandler) var cameraViewHandler
+    @Environment(\.cameraEvent) var snappedEvent
     @State var flow: Flow = .camera
     @State var detectedPoint: [CGPoint] = []
     @State var scaleX: Double = 0.0
@@ -19,23 +20,20 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
     @State private var vector: AnimatableVector = .zero
     @Namespace var perspective
     
-    public let cameraViewHandler: CameraView.CameraViewHandler
     public var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     public var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     
-    public init(cameraViewHandler: CameraView.CameraViewHandler,
-                onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
+    public init(onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in},
                 onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in}) {
-        self.cameraViewHandler = cameraViewHandler
         self.onDocumentDetected = onDocumentDetected
         self.onDocumentSnapped = onDocumentSnapped
+        self.cameraViewHandler.startCamera()
     }
     
-    public init(cameraViewHandler: CameraView.CameraViewHandler) {
-        self.cameraViewHandler = cameraViewHandler
-        cameraViewHandler.startCamera()
+    public init() {
+        self.cameraViewHandler.startCamera()
     }
-    
+        
     public var body: some View {
         ContentAvailable()
             .onReceive(snappedEvent) { s in
@@ -47,24 +45,24 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
     
     @ViewBuilder
     func ContentAvailable() -> some View {
-        switch flow {
-        case .camera:
-            scanView()
-        case .snap(let image):
-            snapView(image: image)
-        case .cropped(let previous, let image):
-            croppedView(previous: previous, image: image)
-        case .perspective(let image):
-            perspective(image: image)
-        @unknown default:
-            ContentUnavailableView("Run the camera template on a device", image: "camera")
+        VStack {
+            switch flow {
+            case .camera:
+                scanView()
+            case .snap(let previous, let image):
+                snapView(previous: previous, image: image)
+            case .perspective(let image):
+                perspective(image: image)
+            @unknown default:
+                ContentUnavailableView("Run the camera template on a device", image: "camera")
+            }
         }
     }
     
     func scanView() -> some View {
         GeometryReader { geo in
             let size = geo.size
-            ImageScannerView(cameraViewHandler: cameraViewHandler)
+            ImageScannerView()
                 .onDocumentDetected { points, uiImage in
                     let pts = points.map { $0.cgPointValue }
                     withAnimation(.interactiveSpring(duration: 0.5)) {
@@ -99,7 +97,7 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                 .onDocumentSnapped { points, uiImage in
                     let snapped = Snapped(uiImage: uiImage, points: points)
                     let cropped = Snapped(uiImage: snapped.crop(), points: points)
-                    snappedEvent.send(.cropped(previous: snapped, image: cropped))
+                    snappedEvent.send(.snap(previous: snapped, image: cropped))
                 }
                 .overlay {
                     DocumentShape(vector: vector)
@@ -108,24 +106,7 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
         }
     }
     
-    func snapView(image: Snapped) -> some View {
-        ImageLayer(snappedEvent: snappedEvent, snapped: image)
-            .matchedGeometryEffect(id: "P", in: perspective)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Back") {
-                        snappedEvent.send(.camera)
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Crop") {
-                        snappedEvent.send(.cropped(previous: image, image: .init(uiImage: image.crop(), points: image.points)))
-                    }
-                }
-            }
-    }
-    
-    func croppedView(previous: Snapped, image: Snapped) -> some View {
+    func snapView(previous: Snapped, image: Snapped) -> some View {
         LightScannerAnimatedView {
             ImageLayer(snappedEvent: snappedEvent, snapped: previous)
         }
@@ -133,20 +114,25 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
             ImageLayer(snappedEvent: snappedEvent, snapped: image)
                 .shadow(radius: 8)
         })
+        .matchedGeometryEffect(id: "P", in: perspective)
         .onTapGesture {
             snappedEvent.send(.camera)
             cameraViewHandler.setAutoDetectionEnabled(true)
+        }
+        .overlay(alignment: .bottom) {
+            Button("Perspective") {
+                snappedEvent.send(.perspective(image: Snapped(uiImage: previous.perspectiveTransformed(), points: image.points)))
+            }
         }
     }
     
     func perspective(image: Snapped) -> some View {
         ImageLayer(snappedEvent: snappedEvent, snapped: image)
             .matchedGeometryEffect(id: "P", in: perspective)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Back") {
-                        snappedEvent.send(.camera)
-                    }
+            .overlay(alignment: .bottom) {
+                Button("Back") {
+                    snappedEvent.send(.camera)
+                    cameraViewHandler.setAutoDetectionEnabled(true)
                 }
             }
     }
