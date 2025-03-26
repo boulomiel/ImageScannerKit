@@ -27,15 +27,15 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                 onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void = { _, _ in}) {
         self.onDocumentDetected = onDocumentDetected
         self.onDocumentSnapped = onDocumentSnapped
-        self.cameraViewHandler.startCamera()
     }
     
-    public init() {
-        self.cameraViewHandler.startCamera()
-    }
+    public init() { }
         
     public var body: some View {
         ContentAvailable()
+            .onAppear(perform: {
+                self.cameraViewHandler.startCamera()
+            })
             .onReceive(snappedEvent) { s in
                 withAnimation {
                     flow = s

@@ -12,6 +12,7 @@ import Combine
 
 struct ContentView: View {
     
+    @State var flashToggle: Bool = false
     @Environment(\.cameraHandler) var handler
         
     var body: some View {
@@ -21,8 +22,11 @@ struct ContentView: View {
             }
             .overlay(alignment: .top) {
                 Button("Flash") {
-                    handler.setFlashEnabled(true)
+                    flashToggle.toggle()
                 }
+            }
+            .onChange(of: flashToggle) { oldValue, newValue in
+                handler.setFlashEnabled(newValue)
             }
     }
 }
