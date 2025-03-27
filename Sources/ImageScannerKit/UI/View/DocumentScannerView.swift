@@ -34,7 +34,13 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
     public var body: some View {
         ContentAvailable()
             .onAppear(perform: {
-                self.cameraViewHandler.startCamera()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.cameraViewHandler.startCamera()
+                    self.cameraViewHandler.setAutoDetectionEnabled(true)
+                }
+            })
+            .onDisappear(perform: {
+                self.cameraViewHandler.stopCamera()
             })
             .onReceive(snappedEvent) { s in
                 withAnimation {
@@ -119,21 +125,21 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
             snappedEvent.send(.camera)
             cameraViewHandler.setAutoDetectionEnabled(true)
         }
-        .overlay(alignment: .bottom) {
-            Button("Perspective") {
-                snappedEvent.send(.perspective(image: Snapped(uiImage: previous.perspectiveTransformed(), points: image.points)))
-            }
-        }
+//        .overlay(alignment: .bottom) {
+//            Button("Perspective") {
+//                snappedEvent.send(.perspective(image: Snapped(uiImage: previous.perspectiveTransformed(), points: image.points)))
+//            }
+//        }
     }
     
     func perspective(image: Snapped) -> some View {
         ImageLayer(snappedEvent: snappedEvent, snapped: image)
             .matchedGeometryEffect(id: "P", in: perspective)
-            .overlay(alignment: .bottom) {
-                Button("Back") {
-                    snappedEvent.send(.camera)
-                    cameraViewHandler.setAutoDetectionEnabled(true)
-                }
-            }
+//            .overlay(alignment: .bottom) {
+//                Button("Back") {
+//                    snappedEvent.send(.camera)
+//                    cameraViewHandler.setAutoDetectionEnabled(true)
+//                }
+//            }
     }
 }
