@@ -28,6 +28,9 @@ NS_SWIFT_SENDABLE
 /// stop the OpenCV Camera - must be run from background thread
 - (void) stopCamera;
 
+/// snap the last frame
+- (nullable UIImage *) onSnap;
+
 /// Activate or deactivate the camera flash
 /// - Parameter enable: if true, the flash is activated
 - (void)toggleFlash:(BOOL)enable;

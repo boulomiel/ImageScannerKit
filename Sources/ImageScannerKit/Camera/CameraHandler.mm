@@ -23,6 +23,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <opencv2/videoio/cap_ios.h>
 
+#import <UIKit/UIKit.h>
+
 
 using namespace cv;
 using namespace std;
@@ -35,6 +37,7 @@ using namespace std;
 #pragma mark - State variables
 BOOL isAutoDetectionActivated;
 BOOL isUIDetectionActivated;
+Mat lastMat;
 
 #pragma mark - References
 PointToCGConverter* pointConverter;
@@ -83,6 +86,17 @@ NSOperationQueue *cameraOperationQueue;
     [videoCamera stop];
 }
 
+- (UIImage *) onSnap {
+    if (lastMat.data == nullptr) {
+        return nil;
+    }
+    if (lastMat.empty()) {
+        return nil;
+    }
+    cv::cvtColor(lastMat, lastMat, COLOR_BGR2RGB);
+    return  MatToUIImage(lastMat);
+}
+
 - (void)setAutoDetectionActivated:(BOOL)isActivated {
     isAutoDetectionActivated = isActivated;
 }
@@ -122,6 +136,7 @@ NSOperationQueue *cameraOperationQueue;
 {
     Mat copy;
     image.copyTo(copy);
+    image.copyTo(lastMat);
     __weak typeof(self) weakSelf = self;
     
     [detector detectDocumentIn:image completion:^(Mat processedImage, std::vector<cv::Point> cornerPoints) {
