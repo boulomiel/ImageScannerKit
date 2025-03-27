@@ -70,7 +70,11 @@ public struct CameraView: UIViewRepresentable {
         }
         
         public func stopCamera() {
-            cameraHandler.startCamera()
+            cameraHandler.stopCamera()
+        }
+        
+        public func snap() -> UIImage? {
+            cameraHandler.onSnap()
         }
         
         public func setFlashEnabled(_ isEnabled: Bool) {
