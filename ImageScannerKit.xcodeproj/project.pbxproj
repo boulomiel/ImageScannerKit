@@ -98,6 +98,7 @@
 				ImageScannerKit/Image/Brightness/Brightness.h,
 				ImageScannerKit/Image/Channel/Channel.h,
 				ImageScannerKit/Image/Contrast/Contrast.h,
+				ImageScannerKit/Image/Corners/Corners.h,
 				ImageScannerKit/Image/Crop/Crop.h,
 				ImageScannerKit/Image/PerspectiveTransform/PerspectiveTransform.h,
 				ImageScannerKit/Image/Rotate/Rotate.h,

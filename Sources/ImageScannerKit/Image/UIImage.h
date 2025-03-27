@@ -63,6 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Returns: A new UIImage with the applied sharpness enhancement.
 - (UIImage *)sharpness:(float)strength;
 
+/// Detect and returns the corners of a rectangle shape in an image
+/// - Returns: An array of cgPointsValue
+- (NSArray<NSValue*> *) corners;
+
 @end
 
 NS_ASSUME_NONNULL_END

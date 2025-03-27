@@ -25,6 +25,7 @@ FOUNDATION_EXPORT const unsigned char ImageScannerKitVersionString[];
 #import "Binary.h"
 #import "Crop.h"
 #import "Channel.h"
+#import "Corners.h"
 
 #import "CameraHandler.h"
 #import "CameraHandlerFrameHolder.h"

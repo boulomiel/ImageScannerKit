@@ -12,7 +12,7 @@
 #import "Brightness/Brightness.h"
 #import "Sharpness/Sharpness.h"
 #import "Channel/Channel.h"
-
+#import "Corners/Corners.h"
 #import "PerspectiveTransform/PerspectiveTransform.h"
 
 @implementation UIImage(OpencvExtension)
@@ -68,6 +68,11 @@
 - (UIImage *)sharpness:(float) strength {
     Sharpness* sharpness = [[Sharpness alloc] init];
     return [sharpness sharpness:self withStrength:strength];
+}
+
+- (NSArray<NSValue*> *) corners {
+    Corners* corners = [[Corners alloc] init];
+    return [corners corners:self];
 }
 
 @end

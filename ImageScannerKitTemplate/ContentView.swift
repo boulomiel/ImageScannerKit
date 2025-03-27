@@ -12,7 +12,10 @@ import Combine
 
 struct ContentView: View {
     
+    @State var autoDetectionToggle = false
     @State var flashToggle: Bool = false
+    @State var detectFromImage: Bool = false
+
     @Environment(\.cameraHandler) var handler
     @Environment(\.cameraEvent) var event
         
@@ -33,30 +36,59 @@ struct ContentView: View {
                     handler.setAutoDetectionEnabled(false)
                 })
                 .overlay(alignment: .top) {
-                    Button("Flash") {
-                        flashToggle.toggle()
+
+                }
+                .overlay(alignment: .top) {
+                    HStack {
+                        Button("Autodetection \(autoDetectionToggle ? "ON" : "OFF")") {
+                            autoDetectionToggle.toggle()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        
+                        Button("Flash") {
+                            flashToggle.toggle()
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
+                    .padding(.top)
+                }
+                .overlay(alignment: .bottom) {
+                    HStack {
+                        Button("Snap") {
+                            if let image = handler.snap() {
+                                self.image = image
+                                handler.stopCamera()
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        
+                        Button("Image") {
+                            detectFromImage = true
+                            self.image = UIImage(resource: .doc5)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding(.bottom)
+                }
+                .onChange(of: autoDetectionToggle) { oldValue, newValue in
+                    handler.setAutoDetectionEnabled(newValue)
                 }
                 .onChange(of: flashToggle) { oldValue, newValue in
                     handler.setFlashEnabled(newValue)
-                }
-                .overlay(alignment: .bottom) {
-                    Button("Snap") {
-                        if let image = handler.snap() {
-                            self.image = image
-                            handler.stopCamera()
-
-                        }
-                    }
                 }
                 .navigationDestination(item: $image) { img in
                     Image(uiImage: img)
                         .resizable()
                         .scaledToFit()
                         .onAppear {
-                            detector.detectDocument(in: img) { uiImage, pts in
-                                let points = pts?.compactMap { $0.cgPointValue } ?? []
+                            if detectFromImage {
+                                let points: [CGPoint] = img.corners().compactMap { $0.cgPointValue }
                                 self.detectedPts = points
+                            } else {
+                                detector.detectDocument(in: img) { uiImage, pts in
+                                    let points: [CGPoint] = pts?.compactMap { $0.cgPointValue } ?? []
+                                    self.detectedPts = points
+                                }
                             }
                         }
                         .overlay {
