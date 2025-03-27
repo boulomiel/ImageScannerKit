@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "1FX32P_4_png_jpg.rf.541df30bf9a60ff81eee3ce49a53e58c.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
