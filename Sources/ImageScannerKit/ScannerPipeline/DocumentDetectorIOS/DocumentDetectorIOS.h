@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIKit.h>
 
+NS_SWIFT_UI_ACTOR
 @interface DocumentDetectorIOS : NSObject
 
  // Detects a document in the given UIImage and returns the processed image along with detected corner points.

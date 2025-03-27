@@ -23,31 +23,33 @@
 #import <opencv2/imgcodecs/ios.h>
 
 using namespace cv;
+using namespace std;
 
 @implementation DocumentDetectorIOS
 
+PointToCGConverter *converter = [[PointToCGConverter alloc] init];
+Mat mat, image_copy;
+
 - (void)detectDocumentIn:(UIImage *)image completion:(void (^)(UIImage *, NSArray<NSValue *> *))completion {
-    Mat mat, baseImage, image_copy;
     UIImageToMat(image, mat);
+
     cvtColor(mat, mat, COLOR_BGR2BGRA);
-    
-    cvtColor(mat, baseImage, COLOR_BGR2RGB);
     mat.copyTo(image_copy);
+    NSLog(@"Mat size: %d x %d, Channels: %d", image_copy.rows, image_copy.cols, image_copy.channels());
 
     GrayScale *grayScale = new GrayScale;
     Blurry *blurry = new Blurry;
-    Clahe *clahe = new Clahe;
 
     Thresholded *thresHolded = new Thresholded;
     Erosion *openErosion = new Erosion(MORPH_OPEN);
     Erosion *closeErosion = new Erosion(MORPH_CLOSE);
     Cannyied *canny = new Cannyied;
     __weak typeof(self) weakSelf = self;
+    
     DetectPolygon *detectPolygon = new DetectPolygon([&, weakSelf](const std::vector<cv::Point> points){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            PointToCGConverter *converter = [[PointToCGConverter alloc] init];
-            completion(image, [converter convertPoint:points]);
-        });
+        if(!weakSelf) { return; }
+            NSLog(@"Mat size: %d x %d, Channels: %d", mat.rows, mat.cols, mat.channels());
+            completion(MatToUIImage(mat), [converter convertPoint:points]);
     });
    
     grayScale->setNext(blurry);
@@ -56,7 +58,6 @@ using namespace cv;
     thresHolded->setNext(openErosion);
     openErosion->setNext(canny);
     canny->setNext(detectPolygon);
-    
     grayScale->handle(image_copy);
 }
 
