@@ -33,12 +33,6 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
         
     public var body: some View {
         ContentAvailable()
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.cameraViewHandler.startCamera()
-                    self.cameraViewHandler.setAutoDetectionEnabled(true)
-                }
-            })
             .onDisappear(perform: {
                 self.cameraViewHandler.stopCamera()
             })
@@ -55,6 +49,9 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
             switch flow {
             case .camera:
                 scanView()
+                    .onAppear(perform: {
+                        self.cameraViewHandler.startCamera()
+                    })
             case .snap(let previous, let image):
                 snapView(previous: previous, image: image)
             case .perspective(let image):
@@ -101,6 +98,7 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                     }
                 }
                 .onDocumentSnapped { points, uiImage in
+                    self.cameraViewHandler.stopCamera()
                     let snapped = Snapped(uiImage: uiImage, points: points)
                     let cropped = Snapped(uiImage: snapped.crop(), points: points)
                     snappedEvent.send(.snap(previous: snapped, image: cropped))
