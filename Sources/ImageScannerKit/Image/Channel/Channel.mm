@@ -15,7 +15,7 @@
 - (bool)hasFourChannels:(UIImage *)image {
     cv::Mat mat;
     UIImageToMat(image, mat);
-    return mat.channels();
+    return mat.channels() == 4;
 }
 
 
