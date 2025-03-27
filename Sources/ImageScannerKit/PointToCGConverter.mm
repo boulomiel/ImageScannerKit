@@ -22,5 +22,15 @@
     return cgPoints;
 }
 
+-(NSArray<NSValue*> *)convertPoint2f:(const std::vector<cv::Point2f>&)currentPoints {
+    NSMutableArray* cgPoints = [NSMutableArray array];
+    for (const cv::Point2f& point : currentPoints) {
+        CGPoint cg = CGPointMake(point.x, point.y);
+        NSValue *cgValue = [NSValue valueWithCGPoint:cg];
+        [cgPoints addObject:cgValue];
+    }
+    return cgPoints;
+}
+
 
 @end
