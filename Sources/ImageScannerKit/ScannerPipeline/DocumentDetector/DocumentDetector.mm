@@ -41,7 +41,7 @@ using namespace cv;
     Erosion *closeErosion = new Erosion(MORPH_CLOSE);
     Cannyied *canny = new Cannyied;
     __weak typeof(self) weakSelf = self;
-    DetectPolygon *detectPolygon = new DetectPolygon([&, weakSelf](const std::vector<cv::Point> points){
+    DetectPolygon *detectPolygon = new DetectPolygon(0.25, 80.0, [&, weakSelf](const std::vector<cv::Point> points){
         completion(baseImage, points);
     });
    

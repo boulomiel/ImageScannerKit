@@ -46,7 +46,7 @@ Mat mat, image_copy;
     Cannyied *canny = new Cannyied;
     __weak typeof(self) weakSelf = self;
     
-    DetectPolygon *detectPolygon = new DetectPolygon([&, weakSelf](const std::vector<cv::Point> points){
+    DetectPolygon *detectPolygon = new DetectPolygon(0.2, 0, [&, weakSelf](const std::vector<cv::Point> points){
         if(!weakSelf) { return; }
             NSLog(@"Mat size: %d x %d, Channels: %d", mat.rows, mat.cols, mat.channels());
             completion(MatToUIImage(mat), [converter convertPoint:points]);

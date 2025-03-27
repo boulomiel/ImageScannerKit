@@ -15,14 +15,14 @@ class DetectPolygon: public ScannerStep {
 public:
     using PointCallback = std::function<void(const std::vector<cv::Point>&)>;
     
-    DetectPolygon(PointCallback callback): pointCallback(callback) {
-        maxDistance = 80.0;
-        minAreaThres = 1/5;
-    }
+    DetectPolygon(double minAreaThres,
+                  double maxDistance,
+                  PointCallback callback): minAreaThres(minAreaThres), maxDistance(maxDistance), pointCallback(callback) { }
     
     void handle(cv::Mat &mat) override {
-        Point2f imageCenter(mat.size().width / 2 , mat.size().height / 2);
-        double minArea = (mat.size().width * mat.size().height) * 0.25;
+        Point2f imageCenter(mat.size().width / 2, mat.size().height / 2);
+        double minArea = (mat.size().width * mat.size().height) * minAreaThres;
+        //std::cout << "minArea" << minArea << "minAreaThres" << minAreaThres << "maxDistance" << maxDistance << std::endl;
         std::vector<std::vector<cv::Point>> contours;
         std::vector<cv::Vec4i> hierarchy;
         findContours(mat, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE);
