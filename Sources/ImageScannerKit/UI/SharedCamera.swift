@@ -14,11 +14,11 @@ final public class SharedCamera {
     static let shared: SharedCamera = .init()
     
     let cameraViewHandler: CameraView.CameraViewHandler
-    let cameraEvent: PassthroughSubject<Flow, Never>
+    let cameraEvent: CurrentValueSubject<Flow, Never>
     
     private init() {
         self.cameraViewHandler = .init()
-        self.cameraEvent = .init()
+        self.cameraEvent = .init(.camera)
     }
 }
 
@@ -29,7 +29,7 @@ struct CameraViewHandlerKey: @preconcurrency EnvironmentKey {
 
 struct CameraEventKey: @preconcurrency EnvironmentKey {
     @MainActor
-    static let defaultValue: PassthroughSubject<Flow, Never> = SharedCamera.shared.cameraEvent
+    static let defaultValue: CurrentValueSubject<Flow, Never> = SharedCamera.shared.cameraEvent
 }
 
 
@@ -40,7 +40,7 @@ public extension EnvironmentValues {
         set { self[CameraViewHandlerKey.self] = newValue }
     }
     
-    var cameraEvent:  PassthroughSubject<Flow, Never> {
+    var cameraEvent:  CurrentValueSubject<Flow, Never> {
         get { self[CameraEventKey.self] }
         set { self[CameraEventKey.self] = newValue }
     }

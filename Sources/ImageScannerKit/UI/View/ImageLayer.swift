@@ -10,16 +10,16 @@ import Combine
 
 public struct ImageLayer: View {
     
-    let snappedEvent: PassthroughSubject<Flow, Never>
+    let snappedEvent: CurrentValueSubject<Flow, Never>
     let snapped: Snapped
     
-    public init(snappedEvent: PassthroughSubject<Flow, Never>, snapped: Snapped) {
+    public init(snappedEvent: CurrentValueSubject<Flow, Never>, snapped: Snapped) {
         self.snappedEvent = snappedEvent
         self.snapped = snapped
     }
     
     public var body: some View {
-        Image(uiImage: snapped.uiImage)
+        Image(uiImage: UIImage(cgImage: snapped.cgImage))
             .resizable()
     }
 }

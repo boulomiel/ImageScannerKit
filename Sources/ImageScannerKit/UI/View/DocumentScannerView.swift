@@ -50,10 +50,15 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
             case .camera:
                 scanView()
                     .onAppear(perform: {
-                        self.cameraViewHandler.startCamera()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                            self.cameraViewHandler.startCamera()
+                            self.cameraViewHandler.setAutoDetectionEnabled(true)
+                        }
                     })
-            case .snap(let previous, let image):
-                snapView(previous: previous, image: image)
+            case .detected(let snapped, let cropped):
+                detectedView(snapped: snapped, cropped: cropped)
+            case .snap(image: let snapped):
+                detectedView(snapped: snapped, cropped: .init(cgImage: snapped.crop(), points: snapped.points))
             case .perspective(let image):
                 perspective(image: image)
             @unknown default:
@@ -99,9 +104,9 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                 }
                 .onDocumentSnapped { points, uiImage in
                     self.cameraViewHandler.stopCamera()
-                    let snapped = Snapped(uiImage: uiImage, points: points)
-                    let cropped = Snapped(uiImage: snapped.crop(), points: points)
-                    snappedEvent.send(.snap(previous: snapped, image: cropped))
+                    let snapped = Snapped(cgImage: uiImage.cgImage!, points: points)
+                    let cropped = Snapped(cgImage: snapped.crop(), points: points)
+                    snappedEvent.send(.detected(snapped: snapped, cropped: cropped))
                 }
                 .overlay {
                     DocumentShape(vector: vector)
@@ -110,34 +115,22 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
         }
     }
     
-    func snapView(previous: Snapped, image: Snapped) -> some View {
+    func detectedView(snapped: Snapped, cropped: Snapped) -> some View {
         LightScannerAnimatedView {
-            ImageLayer(snappedEvent: snappedEvent, snapped: previous)
+            ImageLayer(snappedEvent: snappedEvent, snapped: snapped)
         }
         .overlay(content: {
-            ImageLayer(snappedEvent: snappedEvent, snapped: image)
+            ImageLayer(snappedEvent: snappedEvent, snapped: cropped)
                 .shadow(radius: 8)
         })
         .matchedGeometryEffect(id: "P", in: perspective)
         .onTapGesture {
             snappedEvent.send(.camera)
-            cameraViewHandler.setAutoDetectionEnabled(true)
         }
-//        .overlay(alignment: .bottom) {
-//            Button("Perspective") {
-//                snappedEvent.send(.perspective(image: Snapped(uiImage: previous.perspectiveTransformed(), points: image.points)))
-//            }
-//        }
     }
     
     func perspective(image: Snapped) -> some View {
         ImageLayer(snappedEvent: snappedEvent, snapped: image)
             .matchedGeometryEffect(id: "P", in: perspective)
-//            .overlay(alignment: .bottom) {
-//                Button("Back") {
-//                    snappedEvent.send(.camera)
-//                    cameraViewHandler.setAutoDetectionEnabled(true)
-//                }
-//            }
     }
 }

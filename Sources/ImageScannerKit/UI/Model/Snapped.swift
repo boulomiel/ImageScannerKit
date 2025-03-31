@@ -9,11 +9,11 @@ import UIKit
 
 public struct Snapped: Identifiable {
     public let id: UUID = .init()
-    public let uiImage: UIImage
+    public let cgImage: CGImage
     public let points: [Any]
     
-    public init(uiImage: UIImage, points: [Any]) {
-        self.uiImage = uiImage
+    public init(cgImage: CGImage, points: [Any]) {
+        self.cgImage = cgImage
         self.points = points
     }
     
@@ -21,11 +21,18 @@ public struct Snapped: Identifiable {
         points.map { $0 as! NSValue }
     }
     
-    public func crop() -> UIImage {
-        uiImage.crop(pointNSValues)
+    public func crop() -> CGImage {
+        autoreleasepool {
+            let image = UIImage(cgImage: cgImage)
+            return image.crop(pointNSValues).cgImage!
+        }
     }
     
-    public func perspectiveTransformed() -> UIImage {
-        uiImage.perspectiveTransform(pointNSValues, with: crop(), toDestination: uiImage)
+    public func perspectiveTransformed() -> CGImage {
+        autoreleasepool {
+            let image = UIImage(cgImage: cgImage)
+            let cropped = UIImage(cgImage: crop())
+           return image.perspectiveTransform(pointNSValues, with: cropped, toDestination: image).cgImage!
+        }
     }
 }

@@ -73,8 +73,10 @@ public struct CameraView: UIViewRepresentable {
             cameraHandler.stopCamera()
         }
         
-        public func snap() -> UIImage? {
-            cameraHandler.onSnap()
+        public func snap() {
+            if let image = cameraHandler.onSnap(), let cgImage = image.cgImage {
+                SharedCamera.shared.cameraEvent.send(.snap(image: .init(cgImage: cgImage, points: image.corners())))
+            }
         }
         
         public func setFlashEnabled(_ isEnabled: Bool) {
