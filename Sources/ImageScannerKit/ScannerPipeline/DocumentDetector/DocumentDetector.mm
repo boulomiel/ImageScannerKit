@@ -21,6 +21,7 @@
 
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgcodecs/ios.h>
+#include <memory>
 
 using namespace cv;
 
@@ -33,25 +34,23 @@ using namespace cv;
     cvtColor(image, baseImage, COLOR_BGR2RGB);
     image.copyTo(image_copy);
 
-    GrayScale *grayScale = new GrayScale;
-    Blurry *blurry = new Blurry;
-
-    Thresholded *thresHolded = new Thresholded;
-    Erosion *openErosion = new Erosion(MORPH_OPEN);
-    Erosion *closeErosion = new Erosion(MORPH_CLOSE);
-    Cannyied *canny = new Cannyied;
-    __weak typeof(self) weakSelf = self;
-    DetectPolygon *detectPolygon = new DetectPolygon(0.25, 80.0, [&, weakSelf](const std::vector<cv::Point> points){
+    auto grayScale = std::make_unique<GrayScale>();
+    auto blurry = std::make_unique<Blurry>();
+    auto thresHolded = std::make_unique<Thresholded>();
+    auto openErosion = std::make_unique<Erosion>(MORPH_OPEN);
+    auto closeErosion = std::make_unique<Erosion>(MORPH_CLOSE);
+    auto canny = std::make_unique<Cannyied>();
+    auto detectPolygon = std::make_unique<DetectPolygon>(0.25, 80.0, [&](const std::vector<cv::Point> points){
         completion(baseImage, points);
     });
-   
-    grayScale->setNext(blurry);
-    blurry->setNext(thresHolded);
-    thresHolded->setNext(closeErosion);
-    closeErosion->setNext(openErosion);
-    openErosion->setNext(canny);
-    canny->setNext(detectPolygon);
-    
+
+    grayScale->setNext(blurry.get());
+    blurry->setNext(thresHolded.get());
+    thresHolded->setNext(closeErosion.get());
+    closeErosion->setNext(openErosion.get());
+    openErosion->setNext(canny.get());
+    canny->setNext(detectPolygon.get());
+
     grayScale->handle(image_copy);
 }
 

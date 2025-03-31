@@ -8,8 +8,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface UIImage(OpencvExtension)
 
 /// Check if the current image contains 4 channels (RGBA, BGRA, HSVA...)
@@ -63,24 +61,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Returns: A new UIImage with the applied sharpness enhancement.
 - (UIImage *)sharpness:(float)strength;
 
+/// Enhance details of the image - Heavy
+/// - Parameter strength: The sharpness intensity (higher values increase sharpness, lower values decrease it).
+/// - Returns: A new UIImage with the applied sharpness enhancement.
+-(UIImage *)detailEnhance:(float)strength;
+
 /// Detect and returns the corners of a rectangle shape in an image
 /// - Returns: An array of cgPointsValue
 - (NSArray<NSValue*> *) corners;
 
 @end
 
-NS_ASSUME_NONNULL_END
-
 NS_ASSUME_NONNULL_BEGIN
-
 @interface OpencvExtension
 
 @end
+
+
+NS_ASSUME_NONNULL_END
 
 @implementation OpencvExtension
 
 
 @end
-
-NS_ASSUME_NONNULL_END
-

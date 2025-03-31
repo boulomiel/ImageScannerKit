@@ -21,6 +21,7 @@
 
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgcodecs/ios.h>
+#import <memory>
 
 using namespace cv;
 using namespace std;
@@ -35,29 +36,27 @@ Mat mat, image_copy;
 
     cvtColor(mat, mat, COLOR_BGR2BGRA);
     mat.copyTo(image_copy);
-    NSLog(@"Mat size: %d x %d, Channels: %d", image_copy.rows, image_copy.cols, image_copy.channels());
+  //  NSLog(@"Mat size: %d x %d, Channels: %d", image_copy.rows, image_copy.cols, image_copy.channels());
 
-    GrayScale *grayScale = new GrayScale;
-    Blurry *blurry = new Blurry;
-
-    Thresholded *thresHolded = new Thresholded;
-    Erosion *openErosion = new Erosion(MORPH_OPEN);
-    Erosion *closeErosion = new Erosion(MORPH_CLOSE);
-    Cannyied *canny = new Cannyied;
+    auto grayScale = std::make_unique<GrayScale>();
+    auto blurry = std::make_unique<Blurry>();
+    auto thresHolded = std::make_unique<Thresholded>();
+    auto openErosion = std::make_unique<Erosion>(MORPH_OPEN);
+    auto closeErosion = std::make_unique<Erosion>(MORPH_CLOSE);
+    auto canny = std::make_unique<Cannyied>();
     __weak typeof(self) weakSelf = self;
     
-    DetectPolygon *detectPolygon = new DetectPolygon(0.2, 0, [&, weakSelf](const std::vector<cv::Point> points){
+    auto detectPolygon = std::make_unique<DetectPolygon>(0.2, 0, [&, weakSelf](const std::vector<cv::Point> points){
         if(!weakSelf) { return; }
-            NSLog(@"Mat size: %d x %d, Channels: %d", mat.rows, mat.cols, mat.channels());
-            completion(MatToUIImage(mat), [converter convertPoint:points]);
+        completion(MatToUIImage(mat), [converter convertPoint:points]);
     });
    
-    grayScale->setNext(blurry);
-    blurry->setNext(closeErosion);
-    closeErosion->setNext(thresHolded);
-    thresHolded->setNext(openErosion);
-    openErosion->setNext(canny);
-    canny->setNext(detectPolygon);
+    grayScale->setNext(blurry.get());
+    blurry->setNext(closeErosion.get());
+    closeErosion->setNext(thresHolded.get());
+    thresHolded->setNext(openErosion.get());
+    openErosion->setNext(canny.get());
+    canny->setNext(detectPolygon.get());
     grayScale->handle(image_copy);
 }
 
