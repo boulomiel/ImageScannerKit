@@ -5,10 +5,28 @@
 //  Created by Ruben Mimoun on 26/02/2025.
 //
 
-#import "OCVWrapper.h"
+#import "OCVWrapper.hpp"
 
 #import <UIKit/UIKit.h>
+
+
+//#import "Brightness.h"
+//#import "Sharpness.h"
+//#import "Corners.h"
+
 #import <opencv2/opencv.hpp>
+#import <opencv2/imgcodecs/ios.h>
+
+#import "Channel.hpp"
+#import "Crop.hpp"
+#import "PerspectiveTransform.hpp"
+#import "Rotate.hpp"
+#import "Binary.hpp"
+#import "Contrast.hpp"
+#import "Brightness.hpp"
+#import "Sharpness.hpp"
+#import "Corners.hpp"
+#include "PointToCGConverter.hpp"
 
 using namespace std;
 using namespace cv;
@@ -18,18 +36,7 @@ using namespace cv;
 + (NSString *)openCVVersionString {
     return [NSString stringWithFormat:@"OpenCV Version %s",  CV_VERSION];
 }
-#pragma mark Public
-+ (UIImage *)toGray:(UIImage *)source {
-    cout << "OpenCV: ";
-    return [OCVWrapper _imageFrom:[OCVWrapper _grayFrom:[OCVWrapper _matFrom:source]]];
-}
-#pragma mark Private
-+ (Mat)_grayFrom:(Mat)source {
-    cout << "-> grayFrom ->";
-    Mat result;
-    cvtColor(source, result, COLOR_BGR2GRAY);
-    return result;
-}
+
 + (Mat)_matFrom:(UIImage *)source {
     cout << "matFrom ->";
     CGImageRef image = CGImageCreateCopy(source.CGImage);
@@ -45,6 +52,7 @@ using namespace cv;
     CGContextRelease(context);
     return result;
 }
+
 + (UIImage *)_imageFrom:(Mat)source {
     cout << "-> imageFrom\n";
     NSData *data = [NSData dataWithBytes:source.data length:source.elemSize() * source.total()];
@@ -60,4 +68,121 @@ using namespace cv;
     CGColorSpaceRelease(colorSpace);
     return result;
 }
+
++(bool) hasFourChannels: (UIImage *) image {
+    cv::Mat mat; UIImageToMat(image, mat);
+    @autoreleasepool {
+        return Channel::hasFourChannels(mat);
+    }
+}
+
++ (UIImage *)crop:(UIImage *)image andPoints:(NSArray<NSValue *> *)toPoints {
+    std::vector<cv::Point> pts;
+    for (NSValue *value in toPoints) {
+        CGPoint cgPoint = [value CGPointValue];
+        pts.push_back(cv::Point((int)cgPoint.x, (int)cgPoint.y));
+    }
+    cv::Mat cvImage; UIImageToMat(image, cvImage);
+    @autoreleasepool {
+        cv::Mat result = Crop::toPoints(cvImage, pts);
+        return MatToUIImage(result);
+    }
+}
+
++ (UIImage *)perspectiveTransform:(NSArray<NSValue *> *)sourcePoints with:(UIImage *)sourceImage toDestination:(UIImage *)destination {
+    std::vector<cv::Point2f> pts;
+    for (NSValue *value in sourcePoints) {
+        CGPoint cgPoint = [value CGPointValue];
+        pts.push_back(cv::Point(cgPoint.x, cgPoint.y));
+    }
+    Mat destinationMat; UIImageToMat(destination, destinationMat);
+    Mat sourceMat; UIImageToMat(sourceImage, sourceMat);
+    @autoreleasepool {
+        cv::Mat result = PerspectiveTransform::perspectiveTransform(pts, sourceMat, destinationMat);
+        return MatToUIImage(result);
+    }
+}
+
+
++ (UIImage *)rotate:(UIImage *)image withFlag:(int)flag {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Rotate::rotateWithFlat(mat, flag);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)rotate:(UIImage *)image toangle:(float)angle {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Rotate::rotateToAngle(mat, angle);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)toAdaptiveBinary:(UIImage *)image {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Binary::toAdaptiveBinary(mat);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)toBinary:(UIImage *)image withThreshold:(float)threshold {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Binary::toBinary(mat, threshold);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage*) contrast: (UIImage *)image andAlpha: (float) alpha andBeta:(float) beta{
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Contrast::contrast(mat, alpha, beta);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)brightness:(UIImage *)image andValue:(float)value {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Brightness::brightness(mat, value);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)sharpness:(UIImage *)image withStrength:(float)strength {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Sharpness::sharpness(mat,strength);
+        return MatToUIImage(mat);
+    }
+}
+
++ (UIImage *)detailEnhance:(UIImage *)image withStrength:(float)strength {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        Sharpness::detailEnhance(mat, strength);
+        return MatToUIImage(mat);
+    }
+}
+
++ (NSArray<NSValue *> *)corners:(UIImage *)image {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    @autoreleasepool {
+        std::vector<Point2f> points = Corners::corners(mat);
+        return [PointToCGConverter convertPoint2f:points];
+    }
+}
+
 @end
