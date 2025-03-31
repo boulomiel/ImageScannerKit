@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray<NSValue*> *)convertPoint:(const std::vector<cv::Point> &)currentPoints;
 -(NSArray<NSValue*> *)convertPoint2f:(const std::vector<cv::Point2f>&)currentPoints;
 
++(NSArray<NSValue*> *)convertPoint2f:(const std::vector<cv::Point2f>&)currentPoints;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
