@@ -55,10 +55,7 @@ struct ContentView: View {
                 .overlay(alignment: .bottom) {
                     HStack {
                         Button("Snap") {
-                            if let image = handler.snap() {
-                                self.image = image
-                                handler.stopCamera()
-                            }
+                            handler.snap()
                         }
                         .buttonStyle(.borderedProminent)
                         
