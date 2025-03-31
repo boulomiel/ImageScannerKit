@@ -15,18 +15,7 @@ FOUNDATION_EXPORT const unsigned char ImageScannerKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ImageScannerKit/PublicHeader.h>
 #import "DocumentDetectorIOS.h"
-
 #import "UIImage.h"
-#import "Brightness.h"
-#import "Contrast.h"
-#import "Rotate.h"
-#import "PerspectiveTransform.h"
-#import "Sharpness.h"
-#import "Binary.h"
-#import "Crop.h"
-#import "Channel.h"
-#import "Corners.h"
-
 #import "CameraHandler.h"
 #import "CameraHandlerFrameHolder.h"
 #import "CameraHandlerDelegate.h"
