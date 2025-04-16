@@ -11,14 +11,14 @@ import Combine
 
 public struct DocumentScannerView: ImageScannerViewProtocol {
     
-    @Environment(\.cameraHandler) var cameraViewHandler
-    @Environment(\.cameraEvent) var snappedEvent
-    @State var flow: Flow = .camera
-    @State var detectedPoint: [CGPoint] = []
-    @State var scaleX: Double = 0.0
-    @State var scaleY: Double = 0.0
+    @Environment(\.cameraHandler) private var cameraViewHandler
+    @Environment(\.cameraEvent) private var snappedEvent
+    @State private var flow: Flow = .camera
+    @State private var detectedPoint: [CGPoint] = []
+    @State private var scaleX: Double = 0.0
+    @State private var scaleY: Double = 0.0
     @State private var vector: AnimatableVector = .zero
-    @Namespace var perspective
+    @Namespace private var perspective
     
     public var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
     public var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void = { _, _ in}
@@ -32,15 +32,19 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
     public init() { }
         
     public var body: some View {
+        #if targetEnvironment(simulator)
+        ContentUnvailable()
+        #else
         ContentAvailable()
             .onDisappear(perform: {
-                self.cameraViewHandler.stopCamera()
+                self.cameraViewHandler.stopCamera?()
             })
             .onReceive(snappedEvent) { s in
                 withAnimation {
                     flow = s
                 }
             }
+        #endif
     }
     
     @ViewBuilder
@@ -51,8 +55,8 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                 scanView()
                     .onAppear(perform: {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                            self.cameraViewHandler.startCamera()
-                            self.cameraViewHandler.setAutoDetectionEnabled(true)
+                            self.cameraViewHandler.startCamera?()
+                            self.cameraViewHandler.setAutoDetectionEnabled?(true)
                         }
                     })
             case .detected(let snapped, let cropped):
@@ -62,9 +66,13 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
             case .perspective(let image):
                 perspective(image: image)
             @unknown default:
-                ContentUnavailableView("Run the camera template on a device", image: "camera")
+                ContentUnvailable()
             }
         }
+    }
+    
+    func ContentUnvailable() -> some View {
+        ContentUnavailableView("Run the camera template on a device", image: "camera")
     }
     
     func scanView() -> some View {
@@ -103,8 +111,9 @@ public struct DocumentScannerView: ImageScannerViewProtocol {
                     }
                 }
                 .onDocumentSnapped { points, uiImage in
-                    self.cameraViewHandler.stopCamera()
-                    let snapped = Snapped(cgImage: uiImage.cgImage!, points: points)
+                    guard let cgImage = uiImage.cgImage else { return }
+                    self.cameraViewHandler.stopCamera?()
+                    let snapped = Snapped(cgImage: cgImage, points: points)
                     let cropped = Snapped(cgImage: snapped.crop(), points: points)
                     snappedEvent.send(.detected(snapped: snapped, cropped: cropped))
                 }

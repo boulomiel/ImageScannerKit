@@ -24,7 +24,7 @@ final public class SharedCamera {
 
 struct CameraViewHandlerKey: @preconcurrency EnvironmentKey {
     @MainActor
-    static let defaultValue: CameraView.CameraViewHandler = SharedCamera.shared.cameraViewHandler
+    static let defaultValue: CameraViewAction = SharedCamera.shared.cameraViewHandler
 }
 
 struct CameraEventKey: @preconcurrency EnvironmentKey {
@@ -35,7 +35,7 @@ struct CameraEventKey: @preconcurrency EnvironmentKey {
 
 public extension EnvironmentValues {
  
-    var cameraHandler: CameraView.CameraViewHandler {
+    var cameraHandler: CameraViewAction {
         get { self[CameraViewHandlerKey.self] }
         set { self[CameraViewHandlerKey.self] = newValue }
     }

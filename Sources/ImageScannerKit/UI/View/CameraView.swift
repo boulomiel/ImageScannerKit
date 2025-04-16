@@ -5,18 +5,20 @@
 //  Created by Ruben Mimoun on 23/03/2025.
 //
 
+public typealias CameraViewAction = CameraHandlerFrameHolder & CameraHandlerDelegate
+
 import SwiftUI
 
 public struct CameraView: UIViewRepresentable {
     
     public typealias UIViewType = UIImageView
     
-    let cameraViewHandler: CameraViewHandler
+    let cameraViewHandler: CameraViewAction
     var onDocumentDetected: (_ points: [NSValue], _ uiImage: UIImage) -> Void
     var onDocumentSnapped: (_ points: [NSValue], _ uiImage: UIImage) -> Void
     
     public init(
-        cameraViewHandler: CameraViewHandler,
+        cameraViewHandler: CameraViewAction,
         onDocumentDetected: @escaping (_: [NSValue], _: UIImage) -> Void,
         onDocumentSnapped: @escaping (_: [NSValue], _: UIImage) -> Void) {
             self.onDocumentDetected = onDocumentDetected
@@ -32,8 +34,7 @@ public struct CameraView: UIViewRepresentable {
        
     }
     
-  //  @Observable
-    public class CameraViewHandler: NSObject, CameraHandlerFrameHolder, CameraHandlerDelegate {
+    public class CameraViewHandler: NSObject, CameraViewAction {
         
         var cameraHandler: CameraHandler!
         public var frameView: UIImageView = .init(image: nil)
@@ -99,7 +100,6 @@ public struct CameraView: UIViewRepresentable {
             moreSnappedActions.forEach { action in
                 action(cgPoints, uiImage)
             }
-         //   cameraHandler.stopCamera()
         }
         
         public func onDocumentDetected(_ points: [Any], andImage uiImage: UIImage) {
@@ -110,4 +110,13 @@ public struct CameraView: UIViewRepresentable {
             }
         }
     }
+}
+
+public class PreviewCameraHandler: NSObject, CameraViewAction {
+    public func snap() { }
+    
+    public func onDocumentDetected(_ points: [Any]!, andImage uiImage: UIImage!) { }
+    
+    public var frameView: UIImageView? = nil
+    
 }

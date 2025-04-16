@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OCVWrapper: NSObject
 
-+ (UIImage *)toGray:(UIImage *)source;
+//+ (UIImage *)toGray:(UIImage *)source;
 
 + (bool) hasFourChannels: (UIImage *) image;
 

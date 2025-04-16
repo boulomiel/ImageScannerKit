@@ -33,6 +33,9 @@ NS_SWIFT_UI_ACTOR
 @required
 - (void) onDocumentDetected:(NSArray*) points andImage:(UIImage *) uiImage;
 
+@required
+- (void) snap;
+
 @end
 
 #endif 
