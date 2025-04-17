@@ -105,7 +105,7 @@
 				ImageScannerKit/Image/Sharpness/Sharpness.hpp,
 				ImageScannerKit/Image/UIImage.h,
 				ImageScannerKit/ImageScannerKit.h,
-				ImageScannerKit/ScannerPipeline/DocumentDetectorIOS/DocumentDetectorIOS.h,
+				ImageScannerKit/Scanner/DocumentDetectorIOS/DocumentDetectorIOS.h,
 			);
 			target = 878E85AC2D6EE04400DF6AE8 /* ImageScannerKit */;
 		};

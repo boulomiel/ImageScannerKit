@@ -33,7 +33,7 @@ struct ContentView: View {
                     print("Action Added")
                 }
                 .onAppear(perform: {
-                    handler.setAutoDetectionEnabled(false)
+                    handler.setAutoDetectionEnabled?(false)
                 })
                 .overlay(alignment: .top) {
 
@@ -68,10 +68,10 @@ struct ContentView: View {
                     .padding(.bottom)
                 }
                 .onChange(of: autoDetectionToggle) { oldValue, newValue in
-                    handler.setAutoDetectionEnabled(newValue)
+                    handler.setAutoDetectionEnabled?(newValue)
                 }
                 .onChange(of: flashToggle) { oldValue, newValue in
-                    handler.setFlashEnabled(newValue)
+                    handler.setFlashEnabled?(newValue)
                 }
                 .navigationDestination(item: $image) { img in
                     Image(uiImage: img)
