@@ -10,7 +10,7 @@
 @preconcurrency import CoreImage
 
 final public class MetalDevice: @unchecked Sendable {
-    public let device: MTLDevice!
+    public let device: MTLDevice
     public let context: CIContext
     static let shared: MetalDevice = .init()
     

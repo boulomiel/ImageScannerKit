@@ -13,7 +13,7 @@ final public class SharedCamera {
     
     static let shared: SharedCamera = .init()
     
-    let cameraViewHandler: CameraView.CameraViewHandler
+    let cameraViewHandler: DocumentCameraView.CameraViewHandler
     let cameraEvent: CurrentValueSubject<Flow, Never>
     
     private init() {

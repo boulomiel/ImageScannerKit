@@ -16,7 +16,7 @@ struct ContentView: View {
     let handler = CameraView.CameraViewHandler()
     
     var body: some View {
-        DocumentScannerView(cameraViewHandler: handler)
+        DocumentScannerView()
             .overlay(alignment: .top) {
                 Button("Flash") {
                     handler.setFlashEnabled(true)

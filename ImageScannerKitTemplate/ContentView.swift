@@ -24,17 +24,11 @@ struct ContentView: View {
     @State var image: UIImage?
     @State var detectedPts: [CGPoint] = []
 
-
+    @State var cameraRequest: CameraRequest = .textDetector
 
     var body: some View {
         NavigationStack {
-            DocumentScannerView()
-                .addActionOnDocumentSnapped { pts, img in
-                    print("Action Added")
-                }
-                .onAppear(perform: {
-                    handler.setAutoDetectionEnabled?(false)
-                })
+            cameraContent()
                 .overlay(alignment: .top) {
 
                 }
@@ -98,6 +92,24 @@ struct ContentView: View {
     }
     
     @ViewBuilder
+    func cameraContent() -> some View {
+        switch cameraRequest {
+        case .documentScanner:
+            DocumentScannerView()
+                .addActionOnDocumentSnapped { pts, img in
+                    print("Action Added")
+                }
+                .onAppear(perform: {
+                    handler.setAutoDetectionEnabled?(false)
+                })
+        case .textDetector:
+            MetalCameraView()
+        @unknown default:
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
     func docPath(points: [CGPoint], imageSize: CGSize) -> some View {
         GeometryReader { geo in
             let size = geo.size
@@ -121,28 +133,10 @@ struct ContentView: View {
 }
 
 
-struct ImageMethod: View {
-    
-    @State var image: UIImage = .init(named: "paperplane")!
-    
-    var body: some View {
-        VStack {
-            Image(uiImage: image)
-            HStack {
-                Button("brighness"){
-                    image.brightness(100)
-                }
-            }
-        }
-    }
-    
-}
 
 
 #Preview {
     ContentView()
 }
 
-#Preview {
-    ImageMethod()
-}
+

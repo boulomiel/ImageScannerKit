@@ -71,16 +71,3 @@
 - (NSArray<NSValue*> *) corners;
 
 @end
-
-NS_ASSUME_NONNULL_BEGIN
-@interface OpencvExtension
-
-@end
-
-
-NS_ASSUME_NONNULL_END
-
-@implementation OpencvExtension
-
-
-@end

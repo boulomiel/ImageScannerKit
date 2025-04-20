@@ -5,6 +5,7 @@
 //  Created by Ruben Mimoun on 11/03/2025.
 //
 
+#import "OpencvExtension.h"
 #import "OCVWrapper.hpp"
 
 @implementation UIImage(OpencvExtension)

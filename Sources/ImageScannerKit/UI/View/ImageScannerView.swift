@@ -40,9 +40,8 @@ public struct ImageScannerView: ImageScannerViewProtocol {
 #if targetEnvironment(simulator)
         ContentUnavailableView("No camera in simulator", systemImage: "camera")
 #else
-        CameraView(cameraViewHandler: cameraViewHandler,
-                   onDocumentDetected: onDocumentDetected,
-                   onDocumentSnapped: onDocumentSnapped)
+        CameraView(cameraRequest: .documentScanner(cameraHandler: cameraViewHandler))
+        
 #endif
     }
 }

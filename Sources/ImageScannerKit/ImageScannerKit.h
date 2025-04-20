@@ -19,4 +19,5 @@ FOUNDATION_EXPORT const unsigned char ImageScannerKitVersionString[];
 #import "CameraHandler.h"
 #import "CameraHandlerFrameHolder.h"
 #import "CameraHandlerDelegate.h"
+#import "EASTDetector.h"
 
